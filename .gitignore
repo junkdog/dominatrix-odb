@@ -1,0 +1,12 @@
+*.DS_Store
+*.swp
+*.class
+*.out
+*~
+*.kate-swp
+rebelescape-desktop/*.log
+bin/
+gen/
+artemis-odb
+keyflection-gdx
+rebelescape-desktop/assets/
