@@ -28,7 +28,8 @@ public final class JsonEntityMarshaller
 		
 		sb.append(json.prettyPrint(new EntityRepresentation(e), 80));
 		
-		String data = sb.toString().replaceAll("\n", "\n\t");
+		String data = sb.toString().replaceAll("\n", "$0\t\t");
+		data = data.replaceAll("^", "$0\t");
 		sb.setLength(0);
 		sb.append(data);
 		sb.setLength(sb.length() - 2);
