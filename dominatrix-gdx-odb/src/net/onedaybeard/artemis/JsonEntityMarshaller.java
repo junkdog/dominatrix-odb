@@ -1,7 +1,7 @@
 package net.onedaybeard.artemis;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.artemis.Component;
 import com.artemis.Entity;
@@ -37,17 +37,20 @@ public final class JsonEntityMarshaller
 		return sb.toString();
 	}
 	
-	class EntityRepresentation
+	final private static class EntityRepresentation
 	{
-		private Map<String,Component> components;
+		@SuppressWarnings("unused")
+		private final Map<String,Component> components;
 		
 		EntityRepresentation(Entity e)
 		{
-			setComponents(e.getComponents(new Bag<Component>()));
+			components = getComponents(e);
 		}
 		
-		void setComponents(Bag<Component> bag)
+		static Map<String,Component> getComponents(Entity e)
 		{
+			Bag<Component> bag = e.getComponents(new Bag<Component>());
+			
 			Bag<Component> discard = new Bag<Component>();
 			for (int i = 0, s = bag.size(); s > i; i++)
 			{
@@ -56,12 +59,14 @@ public final class JsonEntityMarshaller
 			}
 			bag.removeAll(discard);
 			
-			components = new HashMap<String,Component>();
+			Map<String,Component> components = new TreeMap<String,Component>();
 			for (int i = 0, s = bag.size(); s > i; i++)
 			{
 				Component component = bag.get(i);
 				components.put(component.getClass().getSimpleName(), component);
 			}
+			
+			return components;
 		}
 	}
 }
