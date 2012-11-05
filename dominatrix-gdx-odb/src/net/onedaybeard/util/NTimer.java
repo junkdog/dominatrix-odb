@@ -67,7 +67,12 @@ public final class NTimer
 
 	public float getTotalMs()
 	{
-		return this.total / 1000000f;
+		return this.total / 1e6f;
+	}
+	
+	public float getSeconds()
+	{
+		return this.total / 1e9f;
 	}
 
 	public float getAvgMs()
