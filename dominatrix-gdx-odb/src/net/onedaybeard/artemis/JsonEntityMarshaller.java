@@ -23,6 +23,7 @@ public final class JsonEntityMarshaller
 	public String toJson(Entity e, String label)
 	{
 		StringBuilder sb = new StringBuilder();
+		
 		if (label != null)
 			sb.append(label).append(':');
 		
@@ -64,10 +65,19 @@ public final class JsonEntityMarshaller
 			for (int i = 0, s = bag.size(); s > i; i++)
 			{
 				Component component = bag.get(i);
-				components.put(component.getClass().getSimpleName(), component);
+				components.put(getComponentName(component), component);
 			}
 			
 			return components;
+		}
+
+		private static String getComponentName(Component component)
+		{
+			Class<? extends Component> klazz = component.getClass();
+			if (klazz.isAnnotationPresent(JsonComponentAlias.class))
+				return klazz.getAnnotation(JsonComponentAlias.class).value();
+			else
+				return klazz.getSimpleName();
 		}
 	}
 }
