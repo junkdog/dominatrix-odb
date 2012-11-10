@@ -1,5 +1,6 @@
 package net.onedaybeard.reflect;
 
+import java.io.ObjectInputStream.GetField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class Reflex
 		addParser(new IntTypeWriter());
 		addParser(new LongTypeWriter());
 		addParser(new StringTypeWriter());
+		addParser(new EnumTypeWriter());
 	}
 	
 	public void addParser(FieldTypeWriter typeParser)
@@ -27,7 +29,19 @@ public class Reflex
 	public boolean isEditable(Field field)
 	{
 		return !isTransient(field)
-			&& fieldParsers.containsKey(field.getType());
+			&& getFieldTypeWriter(field) != null;
+	}
+	
+
+	private FieldTypeWriter getFieldTypeWriter(final Field field)
+	{
+		FieldTypeWriter fieldTypeWriter;
+		if (field.getType().isEnum())
+			fieldTypeWriter = fieldParsers.get(Enum.class);
+		else
+			fieldTypeWriter = fieldParsers.get(field.getType());
+		
+		return fieldTypeWriter;
 	}
 	
 	private static boolean isTransient(Field field)
@@ -47,13 +61,13 @@ public class Reflex
 
 				boolean success = true;
 				
-				FieldTypeWriter fieldTypeWriter = fieldParsers.get(field.getType());
+				FieldTypeWriter fieldTypeWriter = getFieldTypeWriter(field);
 				if (fieldTypeWriter == null)
 					throw new RuntimeException("Missing FieldTypeWriter for " + field.getType());
 				
 				try
 				{
-					field.set(instance, fieldTypeWriter.parse(value));
+					field.set(instance, fieldTypeWriter.parse(value, field));
 				}
 				catch (Exception e)
 				{

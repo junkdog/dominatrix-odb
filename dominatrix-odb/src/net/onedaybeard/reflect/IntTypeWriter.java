@@ -1,5 +1,7 @@
 package net.onedaybeard.reflect;
 
+import java.lang.reflect.Field;
+
 class IntTypeWriter implements FieldTypeWriter
 {
 	@Override
@@ -9,8 +11,10 @@ class IntTypeWriter implements FieldTypeWriter
 	}
 
 	@Override
-	public Object parse(String value)
+	public Object parse(String value, Field reference)
 	{
-		return Integer.parseInt(value);
+		return value.startsWith("0x")
+			? Integer.parseInt(value.substring(2), 16)
+			: Integer.parseInt(value);
 	}
 }

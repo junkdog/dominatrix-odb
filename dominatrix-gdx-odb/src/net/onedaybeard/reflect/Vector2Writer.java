@@ -1,5 +1,7 @@
 package net.onedaybeard.reflect;
 
+import java.lang.reflect.Field;
+
 import com.badlogic.gdx.math.Vector2;
 
 public class Vector2Writer implements FieldTypeWriter
@@ -11,8 +13,10 @@ public class Vector2Writer implements FieldTypeWriter
 	}
 
 	@Override
-	public Object parse(String value)
+	public Object parse(String value, Field reference)
 	{
-		return value;
+		String[] xy = value.substring(1, value.length() - 1).split(":");
+		Vector2 vector2 = new Vector2(Float.parseFloat(xy[0]), Float.parseFloat(xy[1]));
+		return vector2;
 	}
 }

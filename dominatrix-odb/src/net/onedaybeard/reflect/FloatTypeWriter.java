@@ -1,5 +1,7 @@
 package net.onedaybeard.reflect;
 
+import java.lang.reflect.Field;
+
 class FloatTypeWriter implements FieldTypeWriter
 {
 	@Override
@@ -9,7 +11,7 @@ class FloatTypeWriter implements FieldTypeWriter
 	}
 
 	@Override
-	public Object parse(String value)
+	public Object parse(String value, Field reference)
 	{
 		return Float.parseFloat(value);
 	}
