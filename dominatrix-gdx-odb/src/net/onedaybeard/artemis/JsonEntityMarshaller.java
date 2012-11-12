@@ -20,6 +20,11 @@ public final class JsonEntityMarshaller
 		json.setTypeName(null);
 	}
 	
+	public void setOutputType(OutputType outputType)
+	{
+		json.setOutputType(outputType);
+	}
+	
 	public String toJson(Entity e, String label)
 	{
 		StringBuilder sb = new StringBuilder();
