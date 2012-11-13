@@ -1,6 +1,7 @@
 package net.onedaybeard.experimental.ui;
 
 import lombok.Setter;
+import net.onedaybeard.annotation.Sloppy;
 import net.onedaybeard.artemis.JsonEntityMarshaller;
 import net.onedaybeard.experimental.artemis.CommandUtils;
 import net.onedaybeard.experimental.artemis.CommandUtils.ObjectNode;
@@ -16,8 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
+@Sloppy("")
 public final class EntityInspectorHud
 {
+	private Skin skin;
+	
 	private Table table;
 	private Label hovered;
 	
@@ -36,6 +40,8 @@ public final class EntityInspectorHud
 	
 	public EntityInspectorHud(Skin skin, Stage ui, World world)
 	{
+		this.skin = skin;
+		
 		initialize(world);
 		ui.addActor(table);
 		
@@ -87,7 +93,6 @@ public final class EntityInspectorHud
 
 	protected void initialize(final World world)
 	{
-		Skin skin = new Skin(Gdx.files.internal("gfx/ui/uiskin.json"));
 		table = new Table(skin);
 		
 		hovered = new Label("", skin);
