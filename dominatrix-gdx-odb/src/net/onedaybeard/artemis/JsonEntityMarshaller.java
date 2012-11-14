@@ -6,6 +6,8 @@ import java.util.TreeMap;
 import com.artemis.Component;
 import com.artemis.Entity;
 import com.artemis.utils.Bag;
+import com.artemis.utils.ImmutableBag;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
@@ -25,7 +27,7 @@ public final class JsonEntityMarshaller
 		json.setOutputType(outputType);
 	}
 	
-	public String toJson(Entity e, String label)
+	public StringBuilder toJson(Entity e, String label)
 	{
 		StringBuilder sb = new StringBuilder();
 		
@@ -41,7 +43,23 @@ public final class JsonEntityMarshaller
 		sb.setLength(sb.length() - 2);
 		sb.append('}');
 		
-		return sb.toString();
+		return sb;
+	}
+	
+	public StringBuilder toJson(ImmutableBag<Entity> entities)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\n");
+		for (int i = 0, s = entities.size(); s > i; i++)
+		{
+			if (i != 0)
+				sb.append(",\n");
+			
+			sb.append(toJson(entities.get(i), null));
+		}
+		sb.append("\n}");
+		
+		return sb;
 	}
 	
 	final private static class EntityRepresentation

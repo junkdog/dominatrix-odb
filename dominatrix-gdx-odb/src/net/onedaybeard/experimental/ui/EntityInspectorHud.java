@@ -130,7 +130,7 @@ public final class EntityInspectorHud
 			return "Nothing hovered";
 		
 		String key = jsonKeyResolver != null ? jsonKeyResolver.getKey(lastEntity) : null;
-		String text = marshaller.toJson(lastEntity, key);
+		String text = marshaller.toJson(lastEntity, key).toString();
 		return text;
 	}
 	
