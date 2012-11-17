@@ -1,13 +1,13 @@
 package net.onedaybeard.artemis;
 
-import java.util.HashMap;
-import java.util.Map;
+import static net.onedaybeard.util.Logger.error;
+
+import java.util.Iterator;
 
 import com.artemis.Component;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.ObjectMap;
 
 /**
@@ -18,11 +18,15 @@ import com.badlogic.gdx.utils.ObjectMap;
  */
 public final class JsonComponentFactory
 {
+	public static final String TAG = JsonComponentFactory.class.getSimpleName();
+	
 	private Object jsonData;
 	private final String componentPackage;
+	private final Json json;
 	
-	private JsonComponentFactory(Object jsonData, String componentPackage)
+	JsonComponentFactory(Object jsonData, String componentPackage)
 	{		
+		json = new Json();
 		this.jsonData = jsonData;
 		this.componentPackage = componentPackage;
 	}
@@ -32,20 +36,41 @@ public final class JsonComponentFactory
 		return new FileHandleCacher(file, componentPackageName);
 	}
 	
+	public static FactoryInstance from(String json, String componentPackageName)
+	{
+		return new UncachedJsonContents(json, componentPackageName);
+	}
+	
 	private Component getComponent(String entity, Class<?> component)
 	{
-		Json json = new Json();
 		return (Component)json.readValue(component.getSimpleName(), component,
 			jsonDataForKeyPath(entity + ".components", this.jsonData));
 	}
 	
-	private Array<Component> getComponents(String entityName)
+	Array<Component> getComponents(String entityName)
 	{
 		Array<Component> components = new Array<Component>();
 		Array<Class<?>> componentTypes = getComponentTypes(entityName);
 		for (int i = 0, s = componentTypes.size; s > i; i++)
 		{
 			components.add(getComponent(entityName, componentTypes.get(i)));
+		}
+		
+		return components;
+	}
+	
+	@SuppressWarnings("unchecked") Array<Component> getComponents(ObjectMap<?,?> data) throws ClassNotFoundException
+	{
+		ObjectMap<String,?> componentData = (ObjectMap<String,?>)jsonDataForKeyPath("components", data);
+		Iterator<String> componentIterator = componentData.keys().iterator();
+		
+		Array<Component> components = new Array<Component>();
+		while (componentIterator.hasNext())
+		{
+			String componentName = componentIterator.next();
+			Class<?> componentClass = Class.forName(componentPackage + "." + componentName);
+			components.add((Component)json.readValue(componentName, componentClass,
+				jsonDataForKeyPath("components", data)));
 		}
 		
 		return components;
@@ -76,6 +101,20 @@ public final class JsonComponentFactory
 		return getKeys(".");
 	}
 	
+	public Array<?> getArray(String path)
+	{
+		try
+		{
+			Object jsonData = jsonDataForKeyPath(path, this.jsonData);
+			return (Array<?>)jsonData;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private Array<String> getKeys(String path)
 	{
@@ -89,13 +128,17 @@ public final class JsonComponentFactory
 	private static Object jsonDataForKeyPath(String path, Object jsonData)
 	{
 		String[] keys = path.split("\\.");
-		ObjectMap<String, ObjectMap> data = (ObjectMap<String, ObjectMap>)jsonData;
+		Object data = jsonData;
 		for (int i = 0; i<keys.length; i++)
 		{
 			if (data == null)
 				break;
-			data = (ObjectMap<String, ObjectMap>)data.get(keys[i]);
+//			data = ((ObjectMap<String, ObjectMap>)data).get(keys[i]);
 			
+			if (data instanceof ObjectMap<?, ?>)
+				data = ((ObjectMap<String, ObjectMap>)data).get(keys[i]);
+			else
+				error(TAG, "data is of type " + data.getClass());
 		}
 		return data;
 	}
@@ -104,48 +147,8 @@ public final class JsonComponentFactory
 	public interface FactoryInstance
 	{
 		Array<Component> getComponents(String entityType);
+		Array<Component> getComponents(ObjectMap<?,?> data);
 		Array<String> getEntityTypes();
-	}
-	
-	private static class FileHandleCacher implements FactoryInstance
-	{
-		private static Map<String, Object> cache = new HashMap<String, Object>();
-
-		private JsonComponentFactory factory;
-		private Object jsonData;
-
-		private String componentPackageName;
-		
-		public FileHandleCacher(FileHandle file, String componentPackageName)
-		{
-			this.componentPackageName = componentPackageName;
-			String path = file.path();
-			if (!cache.containsKey(path))
-			{
-				JsonReader jsonReader = new JsonReader();
-				cache.put(path, jsonReader.parse(file.readString()));
-			}
-			
-			this.jsonData = cache.get(path);
-		}
-		
-		@Override
-		public Array<Component> getComponents(String entityType)
-		{
-			if (factory == null)
-				factory = new JsonComponentFactory(jsonData, componentPackageName);
-			
-			return factory.getComponents(entityType);
-		}
-
-		@Override
-		public Array<String> getEntityTypes()
-		{
-			if (factory == null)
-				factory = new JsonComponentFactory(jsonData, componentPackageName);
-			
-			return factory.getEntityTypes();
-		}
-
+		Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path);
 	}
 }

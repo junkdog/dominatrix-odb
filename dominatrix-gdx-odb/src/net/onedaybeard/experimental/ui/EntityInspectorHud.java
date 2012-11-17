@@ -65,14 +65,14 @@ public final class EntityInspectorHud
 		marshaller = new JsonEntityMarshaller(OutputType.json);
 	}
 	
-	public void setHovered(Entity e)
+	public void setEntity(Entity e)
 	{
 		if (lastEntity == e)
 			return;
 		
 		lastEntity = e;
 		
-		if (hovered != null)
+		if (lastEntity != null)
 			hovered.setText(getTextForEntity(e));
 		else
 			hovered.setText("");

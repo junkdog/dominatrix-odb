@@ -7,7 +7,6 @@ import com.artemis.Component;
 import com.artemis.Entity;
 import com.artemis.utils.Bag;
 import com.artemis.utils.ImmutableBag;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
@@ -49,7 +48,7 @@ public final class JsonEntityMarshaller
 	public StringBuilder toJson(ImmutableBag<Entity> entities)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("{\n");
+		sb.append("[\n");
 		for (int i = 0, s = entities.size(); s > i; i++)
 		{
 			if (i != 0)
@@ -57,7 +56,7 @@ public final class JsonEntityMarshaller
 			
 			sb.append(toJson(entities.get(i), null));
 		}
-		sb.append("\n}");
+		sb.append("\n]");
 		
 		return sb;
 	}

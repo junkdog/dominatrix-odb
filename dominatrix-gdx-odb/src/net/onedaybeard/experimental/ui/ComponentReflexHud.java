@@ -3,21 +3,22 @@ package net.onedaybeard.experimental.ui;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.visible;
 
 import java.lang.reflect.Field;
 
+import lombok.Getter;
 import net.onedaybeard.artemis.ComponentNameComparator;
+import net.onedaybeard.reflect.ColorWriter;
 import net.onedaybeard.reflect.Reflex;
 import net.onedaybeard.reflect.Vector2Writer;
 
 import com.artemis.Component;
 import com.artemis.Entity;
-import com.artemis.World;
 import com.artemis.utils.Bag;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -37,7 +38,7 @@ public final class ComponentReflexHud
 {
 	private Tree tree;
 	private final Skin skin;
-	private Entity entity;
+	@Getter private Entity entity;
 	private Table table;
 	private final Reflex reflex;
 	
@@ -49,12 +50,13 @@ public final class ComponentReflexHud
 	private static final int WIDTH_VALUE = 250;
 	
 
-	public ComponentReflexHud(Skin skin, Stage ui, final World world)
+	public ComponentReflexHud(Skin skin, Stage ui)
 	{
 		this.skin = skin;
 		
 		reflex = new Reflex();
 		reflex.addParser(new Vector2Writer());
+		reflex.addParser(new ColorWriter());
 		
 		errorColor = new Color(1f, 0.5f, 0.5f, 1f);
 		
@@ -70,6 +72,8 @@ public final class ComponentReflexHud
 		table.defaults().pad(PADDING);
 		table.add(tree);
 		table.align(Align.top | Align.left);
+		
+		table.setVisible(false);
 	}
 	
 	public void setEntity(Entity e)
@@ -78,11 +82,10 @@ public final class ComponentReflexHud
 			return;
 		
 		tree.clear();
+		this.entity = e;
 		
 		if (e == null)
 			return;
-		
-		this.entity = e;
 		
 		Bag<Component> components = e.getComponents(new Bag<Component>());
 		components.sort(new ComponentNameComparator());
@@ -217,9 +220,9 @@ public final class ComponentReflexHud
 	{
 		table.clearActions();
 		if (table.isVisible())
-			table.addAction(sequence(fadeOut(0.35f, Interpolation.pow2), new ToggleAction()));
+			table.addAction(sequence(fadeOut(0.35f, Interpolation.pow2), visible(false)));
 		else
-			table.addAction(sequence(new ToggleAction(), fadeIn(0.35f, Interpolation.pow2)));
+			table.addAction(sequence(visible(true), fadeIn(0.35f, Interpolation.pow2)));
 	}
 	
 	public boolean isVisible()
@@ -229,16 +232,7 @@ public final class ComponentReflexHud
 
 	public void setVisible(boolean visible)
 	{
-		table.setVisible(visible);
-	}
-	
-	private static class ToggleAction extends Action
-	{
-		@Override
-		public boolean act(float delta)
-		{
-			getActor().setVisible(!getActor().isVisible());
-			return true;
-		}
+		if (table.isVisible() != visible)
+			toggle();
 	}
 }
