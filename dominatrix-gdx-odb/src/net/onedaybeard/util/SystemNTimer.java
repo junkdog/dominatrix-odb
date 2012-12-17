@@ -1,5 +1,8 @@
 package net.onedaybeard.util;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.badlogic.gdx.Gdx;
 
 public final class SystemNTimer
@@ -13,10 +16,13 @@ public final class SystemNTimer
 	private final String logFormat;
 	private int dropped;
 
-	public SystemNTimer(Class<?> system, int minInterval)
+	@Getter @Setter private boolean enabled;
+
+	public SystemNTimer(Class<?> system, int minInterval, boolean enabled)
 	{
-		timer = NTimer.obtain();
+		this.timer = NTimer.obtain();
 		this.minInterval = minInterval;
+		this.enabled = enabled;
 
 		logFormat = String.format("%-30s cycle %%7.2f avg %%5.2f (omitted %%d)",
 			system.getSimpleName());
@@ -24,7 +30,12 @@ public final class SystemNTimer
 
 	public SystemNTimer(Class<?> system)
 	{
-		this(system, 1000);
+		this(system, 1000, true);
+	}
+	
+	public SystemNTimer(Class<?> system, boolean enabled)
+	{
+		this(system, 1000, enabled);
 	}
 
 	public void printLog()
@@ -50,7 +61,8 @@ public final class SystemNTimer
 
 	public void start()
 	{
-		timer.start();
+		if (enabled)
+			timer.start();
 	}
 
 	public void stop()
@@ -60,6 +72,9 @@ public final class SystemNTimer
 
 	public void stopAndPrintLog()
 	{
+		if (!enabled)
+			return;
+		
 		timer.stop();
 		printLog();
 	}
