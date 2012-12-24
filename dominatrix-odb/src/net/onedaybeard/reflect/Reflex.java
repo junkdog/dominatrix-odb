@@ -1,6 +1,5 @@
 package net.onedaybeard.reflect;
 
-import java.io.ObjectInputStream.GetField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
