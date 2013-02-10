@@ -33,6 +33,11 @@
 			<artifactId>artemis-odb</artifactId>
 			<version>20130210</version>
 		</dependency>
+		<dependency>
+			<groupId>net.onedaybeard</groupId>
+			<artifactId>dominatrix-odb</artifactId>
+			<version>20130210</version>
+		</dependency>
 	</dependencies>
 
 	<build>
