@@ -126,6 +126,9 @@ public final class EntityInspectorHud
 	
 	public String getJsonForHovered()
 	{
+		if (lastEntity == null)
+			return null;
+		
 		String key = jsonKeyResolver != null ? jsonKeyResolver.getKey(lastEntity) : null;
 		String text = marshaller.toJson(lastEntity, key).toString();
 		return text;
