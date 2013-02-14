@@ -126,9 +126,6 @@ public final class EntityInspectorHud
 	
 	public String getJsonForHovered()
 	{
-		if (lastEntity == null)
-			return "Nothing hovered";
-		
 		String key = jsonKeyResolver != null ? jsonKeyResolver.getKey(lastEntity) : null;
 		String text = marshaller.toJson(lastEntity, key).toString();
 		return text;
@@ -154,7 +151,11 @@ public final class EntityInspectorHud
 		View[] views = View.values();
 		view = views[(view.ordinal() + 1) % views.length];
 		
-		hovered.setText(getTextForEntity(lastEntity));
+		if (lastEntity != null)
+			hovered.setText(getTextForEntity(lastEntity));
+		else
+			hovered.setText("");
+		
 		table.pack();
 	}
 	
