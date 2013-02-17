@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>net.onedaybeard</groupId>
-  <artifactId>dominatrix-odb</artifactId>
+  <artifactId>dominatrix-gdx-odb</artifactId>
   <versioning>
     <versions>
       <version>0.1.0-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20130217033852</lastUpdated>
+    <lastUpdated>20130217033912</lastUpdated>
   </versioning>
 </metadata>

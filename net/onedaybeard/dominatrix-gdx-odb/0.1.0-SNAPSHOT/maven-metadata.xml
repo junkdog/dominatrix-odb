@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
   <groupId>net.onedaybeard</groupId>
-  <artifactId>dominatrix-odb</artifactId>
+  <artifactId>dominatrix-gdx-odb</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20130217.033852</timestamp>
+      <timestamp>20130217.033912</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20130217033852</lastUpdated>
+    <lastUpdated>20130217033912</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.1.0-20130217.033852-1</value>
-        <updated>20130217033852</updated>
+        <value>0.1.0-20130217.033912-1</value>
+        <updated>20130217033912</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.1.0-20130217.033852-1</value>
-        <updated>20130217033852</updated>
+        <value>0.1.0-20130217.033912-1</value>
+        <updated>20130217033912</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
