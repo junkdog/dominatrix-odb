@@ -16,6 +16,11 @@ public final class ComponentUtils
 		
 	}
 	
+	public static Set<Class<? extends Component>> getComponents(Package inPackage)
+	{
+		return getComponents(inPackage.getName());
+	}
+	
 	public static Set<Class<? extends Component>> getComponents(String inPackage)
 	{
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
