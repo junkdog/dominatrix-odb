@@ -34,6 +34,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Array;
 
+
+/**
+ * For input to function, the stage owning this component must register with
+ * <code>Gdx.input.setInputProcessor</code>.
+ */
 public final class ComponentReflexHud
 {
 	private Tree tree;
