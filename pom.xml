@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.onedaybeard</groupId>
 	<artifactId>dominatrix-odb-base</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -33,6 +33,35 @@
 		</repository>
 	</distributionManagement>
 	
+	<developers>
+		<developer>
+			<name>Adrian Papari</name>
+			<email>junkdog@onedaybeard.net</email>
+			<id>junkdog</id>
+			<timezone>1</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Dmitri Fedortchenko</name>
+			<email>d@onedaybeard.net</email>
+			<id>zeraien</id>
+			<timezone>1</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
 	<profiles>
 		<profile>
 			<id>gdx-odb</id>
@@ -47,4 +76,37 @@
 			</modules>
 		</profile>
 	</profiles>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.7</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+					<noJekyll>true</noJekyll>      
+					<merge>true</merge>                            <!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>dominatrix-odb</repositoryName>      <!-- github repo name -->
+					<repositoryOwner>junkdog</repositoryOwner>    <!-- github username -->
+				</configuration>
+				<executions>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>
