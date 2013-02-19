@@ -7,7 +7,6 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>dominatrix-gdx-odb</artifactId>
-	<version>${dominatrix.gdx.version}</version>
 
 	<properties>
 		<gdx.version>0.9.9-SNAPSHOT</gdx.version>

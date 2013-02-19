@@ -8,8 +8,6 @@
 
 	<properties>
 		<github.global.server>github</github.global.server>
-		<dominatrix.version>0.1.0-SNAPSHOT</dominatrix.version>
-		<dominatrix.gdx.version>0.1.0-SNAPSHOT</dominatrix.gdx.version>
 	</properties>
 	
 	<scm>
