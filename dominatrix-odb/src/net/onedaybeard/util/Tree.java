@@ -27,14 +27,11 @@ import lombok.Setter;
  */
 public class Tree<T>
 {
-	@Getter
-	private final List<Tree<T>> childNodes;
+	@Getter	private final List<Tree<T>> childNodes;
 	
-	@Getter
-	private Tree<T> parent;
+	@Getter	private Tree<T> parent;
 	
-	@Getter @Setter
-	private T value;
+	@Getter @Setter	private T value;
 	
 	public Tree()
 	{

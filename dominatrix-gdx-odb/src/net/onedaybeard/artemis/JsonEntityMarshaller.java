@@ -10,6 +10,9 @@ import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
+/**
+ * Writes entities as json.
+ */
 public final class JsonEntityMarshaller
 {
 	private Json json;

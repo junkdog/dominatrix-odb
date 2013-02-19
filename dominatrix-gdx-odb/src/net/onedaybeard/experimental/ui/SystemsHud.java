@@ -5,8 +5,6 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import net.onedaybeard.annotation.Sloppy;
-
 import com.artemis.EntitySystem;
 import com.artemis.World;
 import com.artemis.utils.ImmutableBag;
@@ -21,7 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Sort;
 
-@Sloppy("Assets should handle skin")
+/**
+ * Shows a table for toggling systems held by {@link World}.
+ */
 public final class SystemsHud
 {
 	private static final int PADDING = 10;

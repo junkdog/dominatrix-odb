@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
+/**
+ * Shows component breakdown of an entity. Has two view modes, textual and json.
+ */
 public final class EntityInspectorHud
 {
 	private Skin skin;

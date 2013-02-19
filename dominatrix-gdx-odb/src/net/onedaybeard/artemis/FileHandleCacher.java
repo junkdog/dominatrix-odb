@@ -43,8 +43,7 @@ class FileHandleCacher implements FactoryInstance
 		return factory.getEntityTypes();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
+	@SuppressWarnings("unchecked")	@Override
 	public Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path)
 	{
 		return (Array<ObjectMap<String,ObjectMap<?,?>>>)factory.getArray(path);

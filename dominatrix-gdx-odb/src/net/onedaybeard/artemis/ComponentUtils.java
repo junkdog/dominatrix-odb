@@ -48,13 +48,13 @@ public final class ComponentUtils
 			e.addComponent((Component)component.newInstance());
 			e.changedInWorld();
 		}
-		catch (InstantiationException e1)
+		catch (InstantiationException exc)
 		{
-			throw new RuntimeException(e1);
+			throw new RuntimeException("Missing default constructor? Unable to instantiate " + component, exc);
 		}
-		catch (IllegalAccessException e1)
+		catch (IllegalAccessException exc)
 		{
-			throw new RuntimeException(e1);
+			throw new RuntimeException("Unable to instantiate " + component, exc);
 		}
 	}
 }

@@ -78,7 +78,6 @@ public final class CommandUtils
 				sb.insert(0, "    ");
 			else
 				sb.insert(0, "|   ");
-				
 		}
 		
 		return sb.toString();

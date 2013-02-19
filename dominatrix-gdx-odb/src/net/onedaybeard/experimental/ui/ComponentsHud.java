@@ -19,6 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * SAdds components to entities.
+ */
 public final class ComponentsHud
 {
 	private static final int PADDING = 10;

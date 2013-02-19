@@ -14,6 +14,11 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Artemis manager for creating entities defined in json data files.
+ * 
+ * @see EntityFactoryManager#addNewToWorld()
+ */
 public class EntityFactoryManager extends Manager
 {
 	public static final String TAG = EntityFactoryManager.class.getSimpleName();
