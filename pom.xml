@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.onedaybeard</groupId>
+	<artifactId>dominatrix-odb-base</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<github.global.server>github</github.global.server>
+		<dominatrix.version>0.1.0-SNAPSHOT</dominatrix.version>
+		<dominatrix.gdx.version>0.1.0-SNAPSHOT</dominatrix.gdx.version>
+	</properties>
+	
+	<scm>
+		<url>https://github.com/junkdog/dominatrix-odb/</url>
+		<connection>scm:git:git@github.com:junkdog/dominatrix-odb.git</connection>
+		<developerConnection>scm:git:git@github.com:junkdog/dominatrix-odb.git</developerConnection>
+	</scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.6</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
+	
+	<profiles>
+		<profile>
+			<id>gdx-odb</id>
+			<modules>
+				<module>dominatrix-gdx-odb</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>odb</id>
+			<modules>
+				<module>dominatrix-odb</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>
