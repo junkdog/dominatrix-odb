@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.onedaybeard</groupId>
 		<artifactId>dominatrix-odb-base</artifactId>
-		<version>0.1.1-SNAPSHOT</version>
+		<version>0.1.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>dominatrix-gdx-odb</artifactId>
 
@@ -53,6 +53,12 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.8</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+			</exclusion>
+	</exclusions>
 		</dependency>
 	</dependencies>
 
