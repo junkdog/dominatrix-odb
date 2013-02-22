@@ -27,8 +27,6 @@ public final class SystemsHud
 	private static final int PADDING = 10;
 	private static final int COLUMNS = 5;
 	
-	private static final String SYSTEM_PACKAGE_REGEX = "^net.onedaybeard.psytripper.system.?";
-	
 	private Window systemsWindow;
 	
 	public SystemsHud(Skin skin, Stage ui, World world)
@@ -64,9 +62,10 @@ public final class SystemsHud
 			new TreeMap<String, Array<EntitySystem>>();
 		
 		ImmutableBag<EntitySystem> systems = world.getSystems();
+		String commonPackage = findCommonPackage(systems);
 		for (int i = 0, s = systems.size(); s > i; i++)
 		{
-			addSystemToMap(systemMap, systems.get(i));
+			addSystemToMap(systemMap, systems.get(i), commonPackage.length());
 		}
 		
 		Window w = new Window("systems", skin);
@@ -85,6 +84,25 @@ public final class SystemsHud
 		return w;
 	}
 	
+	private static String findCommonPackage(ImmutableBag<EntitySystem> systems)
+	{
+		String prefix = systems.get(0).getClass().getPackage().getName();
+		for (int i = 1, s = systems.size(); s > i; i++)
+		{
+			String p = systems.get(i).getClass().getPackage().getName();
+			for (int j = 0, l = Math.min(prefix.length(), p.length()); l > j; j++)
+			{
+				if (prefix.charAt(j) != p.charAt(j))
+				{
+					prefix = prefix.substring(0, j);
+					break;
+				}
+			}
+		}
+
+		return prefix;
+	}
+
 	private static void addSystemsToWindow(Window w, Skin skin, Array<EntitySystem> systems)
 	{
 		Sort.instance().sort(systems, new SystemNameComparator());
@@ -97,10 +115,11 @@ public final class SystemsHud
 		}
 	}
 
-	private static void addSystemToMap(SortedMap<String,Array<EntitySystem>> systemMap, EntitySystem system)
+	private static void addSystemToMap(SortedMap<String,Array<EntitySystem>> systemMap, EntitySystem system, int offset)
 	{
-		String p = system.getClass().getPackage().getName();
-		p = p.replaceAll(SYSTEM_PACKAGE_REGEX, "");
+		String p = system.getClass().getPackage().getName().substring(offset);
+		if (p.startsWith("."))
+			p = p.substring(1);
 		
 		if (!systemMap.containsKey(p))
 			systemMap.put(p, new Array<EntitySystem>());
