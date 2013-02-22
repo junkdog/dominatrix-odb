@@ -86,7 +86,7 @@ public final class ComponentReflexHud
 		if (e == entity)
 			return;
 		
-		tree.clear();
+		tree.clearChildren();
 		this.entity = e;
 		
 		if (e == null)
