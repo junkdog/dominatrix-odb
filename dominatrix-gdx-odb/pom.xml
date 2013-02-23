@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.onedaybeard</groupId>
 		<artifactId>dominatrix-odb-base</artifactId>
-		<version>0.1.2-SNAPSHOT</version>
+		<version>0.2.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>dominatrix-gdx-odb</artifactId>
 
@@ -16,6 +16,14 @@
 		<repository>
 			<id>gdx-nightlies</id>
 			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
+		</repository>
+		<repository>
+			<id>dominatrix-odb-mvn-repo</id>
+			<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 
