@@ -50,12 +50,12 @@
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
 			<artifactId>artemis-odb</artifactId>
-			<version>20130210</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
 			<artifactId>dominatrix-odb</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
