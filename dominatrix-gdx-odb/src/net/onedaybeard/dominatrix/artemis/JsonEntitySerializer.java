@@ -13,11 +13,11 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 /**
  * Writes entities as json.
  */
-public final class JsonEntityMarshaller
+public final class JsonEntitySerializer
 {
 	private Json json;
 
-	public JsonEntityMarshaller(OutputType outputType)
+	public JsonEntitySerializer(OutputType outputType)
 	{
 		json = new Json();
 		json.setOutputType(outputType);
@@ -36,7 +36,7 @@ public final class JsonEntityMarshaller
 		if (label != null)
 			sb.append(label).append(':');
 		
-		sb.append(json.prettyPrint(new EntityRepresentation(e), 80));
+		sb.append(json.prettyPrint(new EntityRepresentation(e), 105));
 		
 		String data = sb.toString().replaceAll("\n", "$0\t\t");
 		data = data.replaceAll("^", "$0\t");

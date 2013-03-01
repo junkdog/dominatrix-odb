@@ -3,7 +3,7 @@ package net.onedaybeard.dominatrix.artemis;
 import com.artemis.Component;
 
 /**
- * Json key component interface, as reported by the {@link JsonEntityMarshaller} and 
+ * Json key component interface, as reported by the {@link JsonEntitySerializer} and 
  * when referencing entity types for the {@link EntityFactoryManager}. 
  *
  * @see {@link EntityFactoryManager#from(com.badlogic.gdx.files.FileHandle, Class)}

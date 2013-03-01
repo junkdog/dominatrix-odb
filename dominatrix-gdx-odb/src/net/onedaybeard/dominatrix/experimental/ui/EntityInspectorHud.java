@@ -1,7 +1,7 @@
 package net.onedaybeard.dominatrix.experimental.ui;
 
 import lombok.Setter;
-import net.onedaybeard.dominatrix.artemis.JsonEntityMarshaller;
+import net.onedaybeard.dominatrix.artemis.JsonEntitySerializer;
 import net.onedaybeard.dominatrix.experimental.artemis.CommandUtils;
 import net.onedaybeard.dominatrix.experimental.artemis.CommandUtils.ObjectNode;
 import net.onedaybeard.dominatrix.util.Tree;
@@ -31,7 +31,7 @@ public final class EntityInspectorHud
 	
 	@Setter private JsonKeyResolver jsonKeyResolver;
 	
-	private JsonEntityMarshaller marshaller;
+	private JsonEntitySerializer marshaller;
 	
 	public EntityInspectorHud(Skin skin, Stage ui, World world)
 	{
@@ -43,7 +43,7 @@ public final class EntityInspectorHud
 		table.setVisible(false);
 		view = View.ENTITY;
 		
-		marshaller = new JsonEntityMarshaller(OutputType.json);
+		marshaller = new JsonEntitySerializer(OutputType.json);
 	}
 	
 	public void setEntity(Entity e)

@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import net.onedaybeard.dominatrix.util.Logger;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 
