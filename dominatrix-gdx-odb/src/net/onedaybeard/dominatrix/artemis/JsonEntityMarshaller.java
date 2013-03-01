@@ -29,7 +29,7 @@ public final class JsonEntityMarshaller
 		json.setOutputType(outputType);
 	}
 	
-	public StringBuilder toJson(Entity e, String label)
+	public CharSequence toJson(Entity e, String label)
 	{
 		StringBuilder sb = new StringBuilder();
 		
@@ -48,7 +48,7 @@ public final class JsonEntityMarshaller
 		return sb;
 	}
 	
-	public StringBuilder toJson(ImmutableBag<Entity> entities)
+	public CharSequence toJson(ImmutableBag<Entity> entities)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("[\n");
@@ -66,7 +66,7 @@ public final class JsonEntityMarshaller
 	
 	final private static class EntityRepresentation
 	{
-		@SuppressWarnings("unused")
+		@SuppressWarnings("unused") // bc: json.prettyPrint
 		private final Map<String,Component> components;
 		
 		EntityRepresentation(Entity e)

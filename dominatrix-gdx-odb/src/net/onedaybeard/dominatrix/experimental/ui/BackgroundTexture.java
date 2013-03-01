@@ -28,4 +28,15 @@ public final class BackgroundTexture
 		}
 		return new TiledDrawable(new TextureRegion(texture));
 	}
+	
+	public static Texture createBgTexture()
+	{
+			Pixmap pixmap = new Pixmap(1, 1, Format.RGBA4444);
+			pixmap.setColor(Color.WHITE);
+			pixmap.fill();
+			Texture texture = new Texture(pixmap);
+			pixmap.dispose();
+			
+			return texture;
+	}
 }

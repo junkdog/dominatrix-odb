@@ -13,7 +13,7 @@ import net.onedaybeard.dominatrix.annotation.Sloppy;
 import net.onedaybeard.dominatrix.artemis.ComponentNameComparator;
 import net.onedaybeard.dominatrix.util.Tree;
 
-@Sloppy("refuctor")
+@Sloppy("ought to be refnuqued")
 public final class CommandUtils
 {
 	public static Tree<ObjectNode> feedComponents(Tree<ObjectNode> systemTree, Entity e)

@@ -59,7 +59,8 @@ public final class JsonComponentFactory
 		return components;
 	}
 	
-	@SuppressWarnings("unchecked") Array<Component> getComponents(ObjectMap<?,?> data) throws ClassNotFoundException
+	@SuppressWarnings("unchecked")
+	Array<Component> getComponents(ObjectMap<?,?> data) throws ClassNotFoundException
 	{
 		ObjectMap<String,?> componentData = (ObjectMap<String,?>)jsonDataForKeyPath("components", data);
 		Iterator<String> componentIterator = componentData.keys().iterator();
@@ -133,7 +134,6 @@ public final class JsonComponentFactory
 		{
 			if (data == null)
 				break;
-//			data = ((ObjectMap<String, ObjectMap>)data).get(keys[i]);
 			
 			if (data instanceof ObjectMap<?, ?>)
 				data = ((ObjectMap<String, ObjectMap>)data).get(keys[i]);

@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Narks a component for exclusion when marshalling to json.
+ * Marks a component for exclusion during serialization.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
