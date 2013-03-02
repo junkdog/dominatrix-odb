@@ -4,13 +4,12 @@ import static net.onedaybeard.dominatrix.util.Disposer.free;
 
 import java.util.Properties;
 
-import lombok.Setter;
 import net.onedaybeard.dominatrix.demo.Director;
 import net.onedaybeard.dominatrix.demo.component.Renderable;
 import net.onedaybeard.dominatrix.demo.component.Tint;
 import net.onedaybeard.dominatrix.demo.event.CommandEvent;
-import net.onedaybeard.dominatrix.demo.event.CommandEventListener;
 import net.onedaybeard.dominatrix.demo.event.CommandEvent.Type;
+import net.onedaybeard.dominatrix.demo.event.CommandEventListener;
 import net.onedaybeard.dominatrix.inject.InjectProperty;
 import net.onedaybeard.dominatrix.inject.InjectableProperties;
 
@@ -35,7 +34,7 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 	private final OrthographicCamera camera;
 	private ShapeRenderer renderer;
 
-	@InjectProperty("bounds_color_from_tint") private boolean colorFromTint = false;
+	@InjectProperty("boundary_color_from_tint") private boolean colorFromTint = false;
 	
 	private ComponentMapper<Renderable> renderableMapper;
 	private ComponentMapper<Tint> tintMapper;
