@@ -22,10 +22,10 @@ public class ColorWriter implements FieldTypeWriter
 			c |= 0xff << 24;
 
 		Color color = new Color(
-			(c >> 0 & 0xff) / 255f,
-			(c >> 8 & 0xff) / 255f,
+			(c >> 24 & 0xff) / 255f,
 			(c >> 16 & 0xff) / 255f,
-			(c >> 24 & 0xff) / 255f);
+			(c >> 8  & 0xff) / 255f,
+			(c >> 0  & 0xff) / 255f);
 		
 		return color;
 	}
