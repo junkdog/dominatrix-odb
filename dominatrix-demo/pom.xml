@@ -12,6 +12,8 @@
 
 	<properties>
 		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
+		<keyflection.version>0.1.0-SNAPSHOT</keyflection.version>
+		<artemis.odb.version>0.3.0-SNAPSHOT</artemis.odb.version>
 		<mainClass>net.onedaybeard.dominatrix.demo.DemoApp</mainClass>
 	</properties>
 
@@ -42,6 +44,17 @@
 			<groupId>net.onedaybeard</groupId>
 			<artifactId>dominatrix-gdx-odb</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.onedaybeard</groupId>
+			<artifactId>keyflection-gdx</artifactId>
+			<version>${keyflection.version}</version>
 		</dependency>
 	</dependencies>
 

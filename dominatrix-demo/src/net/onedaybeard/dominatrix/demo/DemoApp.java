@@ -1,78 +1,55 @@
 package net.onedaybeard.dominatrix.demo;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class DemoApp implements ApplicationListener {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	private Sprite sprite;
-	
+public class DemoApp implements ApplicationListener
+{
 	@Override
-	public void create() {		
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+	public void create()
+	{
+		Director.instance.setScreen(new DemoScreen());
+	}
+
+	@Override
+	public void resize(int width, int height)
+	{
+		Director.instance.getScreen().resize(width, height);
+	}
+
+	@Override
+	public void render()
+	{
+		Director.instance.update();
+	}
+
+	@Override
+	public void pause()
+	{
+		Director.instance.getScreen().pause();
+	}
+
+	@Override
+	public void resume()
+	{
+		Director.instance.getScreen().resume();
+	}
+
+	@Override
+	public void dispose()
+	{
+		Director.instance.dispose();
 	}
 	
-	public static void main(String[] args) {
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "dominatrix-demo";
-		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
-		
-		new LwjglApplication(new DemoApp(), cfg);
-	}
-
-	@Override
-	public void dispose() {
-		batch.dispose();
-		texture.dispose();
-	}
-
-	@Override
-	public void render() {		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
+	public static void main(String[] args)
+	{
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.useGL20 = true;
+		config.width = 1280;
+		config.height = 800;
+		config.resizable = false;
+		config.title = "dominatrix api demo";
+		new LwjglApplication(new DemoApp(), config);
 	}
 }

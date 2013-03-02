@@ -1,0 +1,27 @@
+{
+	penguin:{
+		"components": {
+			"AssetReference": { "path": "gfx/easter_penguin.png" },
+			"JsonKey": { "name": "penguin" },
+			"Position": {
+				"point": { "x": 300, "y": 300 }
+			},
+			"Scale": { "value": 0.420 }
+		}
+	},
+	penguin2:{
+		"components": {
+			"AssetReference": { "path": "gfx/pharaoh_penguin.png" },
+			"JsonKey": { "name": "penguin2" },
+			"Position": {
+				"point": { "x": 500, "y": 300 }
+			},
+			"Tint": {
+				"color": { "a": 1, "g": 1, "r": 1 }
+			},
+			"Velocity": {
+				"vector": { "x": 2 }
+			}
+		}
+	}
+}

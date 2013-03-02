@@ -46,6 +46,7 @@
 			<groupId>com.badlogic.gdx</groupId>
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
