@@ -35,12 +35,10 @@ public final class CommandEvent extends Event
 	public void setValue(float value)
 	{
 		this.value = Float.floatToIntBits(value);
-//		this.value = Float.intBitsToFloat(value);
 	}
 	
 	public float getFloatValue()
 	{
-//		return Float.floatToIntBits(value);
 		return Float.intBitsToFloat(value);
 	}
 }

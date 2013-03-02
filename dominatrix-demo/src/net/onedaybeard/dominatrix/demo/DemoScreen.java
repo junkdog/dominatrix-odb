@@ -127,7 +127,7 @@ public class DemoScreen implements Screen, InjectableProperties
 		Director.instance.setEventSystem(world.setSystem(new EventSystem()));
 		world.setSystem(new MouseInputSystem());
 		world.setSystem(new PositionUpdateSystem());
-		world.setSystem(new BoundsKeeperSystem());
+		world.setSystem(new BoundsKeeperSystem(camera));
 		world.setSystem(new SpritePositionUpdateSystem());
 		world.setSystem(new SpriteRenderSystem(Director.instance.getSpriteBatch(), camera));
 		world.setSystem(new SpriteBoundsRenderSystem(camera));

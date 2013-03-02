@@ -1,42 +1,56 @@
 package net.onedaybeard.dominatrix.demo.system.spatial;
 
-import static net.onedaybeard.dominatrix.pool.Vector2Pool.free;
-import static net.onedaybeard.dominatrix.pool.Vector2Pool.vector2;
-import net.onedaybeard.dominatrix.demo.component.Position;
+import net.onedaybeard.dominatrix.demo.component.Renderable;
 import net.onedaybeard.dominatrix.demo.component.Velocity;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public final class BoundsKeeperSystem extends EntityProcessingSystem
 {
-	private ComponentMapper<Position> positionMapper;
+	private ComponentMapper<Renderable> RenderableMapper;
 	private ComponentMapper<Velocity> velocityMapper;
+	private OrthographicCamera camera;
 
 	@SuppressWarnings("unchecked")
-	public BoundsKeeperSystem()
+	public BoundsKeeperSystem(OrthographicCamera camera)
 	{
-		super(Aspect.getAspectForAll(Position.class, Velocity.class));
+		super(Aspect.getAspectForAll(Renderable.class, Velocity.class));
+		this.camera = camera;
 	}
 
 	@Override
 	protected void initialize()
 	{
-		positionMapper = world.getMapper(Position.class);
+		RenderableMapper = world.getMapper(Renderable.class);
 		velocityMapper = world.getMapper(Velocity.class);
 	}
 
 	@Override
 	protected void process(Entity e)
 	{
-		Vector2 point = positionMapper.get(e).point();
-		Vector2 velocity = vector2(velocityMapper.get(e).get());
+		Sprite sprite = RenderableMapper.get(e).getSprite();
+		Vector2 velocity = velocityMapper.get(e).get();
 		
-		point.add(velocity.mul(world.delta));
+		Rectangle rect = sprite.getBoundingRectangle();
 		
-		free(velocity);
+		if ((rect.x < 0 && velocity.x < 0)
+			|| ((rect.x + rect.width) > camera.viewportWidth && velocity.x > 0))
+		{
+			velocity.x *= -1;
+		}
+		
+		if ((rect.y < 0 && velocity.y < 0)
+			|| ((rect.y + rect.height) > camera.viewportHeight && velocity.y > 0))
+		{
+			velocity.y *= -1;
+		}
+			
 	}
 }
