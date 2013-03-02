@@ -12,7 +12,8 @@ public final class CommandEvent extends Event
 	{
 		ENTITY_SELECTED,
 		HOVERED_ENTITY,
-		NO_HOVERED_ENTITY;
+		NO_HOVERED_ENTITY,
+		PROPERTIES_INJECTED;
 	}
 
 	private Type type;

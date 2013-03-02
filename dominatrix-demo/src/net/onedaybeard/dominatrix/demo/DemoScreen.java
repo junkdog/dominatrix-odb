@@ -1,7 +1,11 @@
 package net.onedaybeard.dominatrix.demo;
 
+import java.lang.reflect.Field;
+import java.util.Properties;
+
 import net.onedaybeard.dominatrix.artemis.EntityFactoryManager;
 import net.onedaybeard.dominatrix.demo.component.JsonKey;
+import net.onedaybeard.dominatrix.demo.event.CommandEvent.Type;
 import net.onedaybeard.dominatrix.demo.manager.DebugUiManager;
 import net.onedaybeard.dominatrix.demo.manager.RenderableResolverManager;
 import net.onedaybeard.dominatrix.demo.manager.ScaleManager;
@@ -12,34 +16,47 @@ import net.onedaybeard.dominatrix.demo.system.render.SpriteRenderSystem;
 import net.onedaybeard.dominatrix.demo.system.spatial.BoundsKeeperSystem;
 import net.onedaybeard.dominatrix.demo.system.spatial.PositionUpdateSystem;
 import net.onedaybeard.dominatrix.demo.system.spatial.SpritePositionUpdateSystem;
+import net.onedaybeard.dominatrix.inject.InjectProperty;
+import net.onedaybeard.dominatrix.inject.InjectableProperties;
+import net.onedaybeard.dominatrix.inject.PropertyInjector;
+import net.onedaybeard.dominatrix.inject.TypeInjector;
+import net.onedaybeard.dominatrix.util.Logger;
 import net.onedaybeard.keyflection.CommandController;
 import net.onedaybeard.keyflection.CommandManager;
 import net.onedaybeard.keyflection.KeyflectionInputProcessor;
 import net.onedaybeard.keyflection.annotation.Command;
 import net.onedaybeard.keyflection.annotation.Shortcut;
 
+import com.artemis.EntitySystem;
 import com.artemis.World;
+import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class DemoScreen implements Screen
+public class DemoScreen implements Screen, InjectableProperties
 {
 	public static final String TAG = DemoScreen.class.getSimpleName();
 	
 	private World world;
 	private EntityFactoryManager entityFactoryManager;
 	
+	private PropertyInjector injector;
+	
 	private final Stage stage;
 	private final OrthographicCamera camera;
 	
 	private boolean running;
-	private float deltaMultiplier = 1;
+	@InjectProperty("delta_multiplier") private float deltaMultiplier = 1;
+	
+	@InjectProperty("background_clear_color") private Color bg = Color.BLACK;
+
 	
 	public DemoScreen()
 	{
@@ -52,8 +69,47 @@ public class DemoScreen implements Screen
 		world = initArtemis(Director.instance.getSpriteBatch(), stage);
 		initEntities(world);
 		initInput(stage);
+		injector = initPropertyInjection(world);
 		
 		running = true;
+	}
+
+	private PropertyInjector initPropertyInjection(World world)
+	{
+		PropertyInjector injector = new PropertyInjector();
+		injector.setTypeInjector(Color.class, new TypeInjector()
+		{
+			@Override
+			public void inject(InjectableProperties instance, Field field, String data) throws IllegalArgumentException,
+				IllegalAccessException
+			{
+				String s = data.toUpperCase().replace(' ', '_');
+				try
+				{
+					Field color = Color.class.getField(s);
+					field.set(instance, color.get(null));
+				}
+				catch (SecurityException e)
+				{
+					Logger.error(TAG, e, e.getMessage());
+				}
+				catch (NoSuchFieldException e)
+				{
+					Logger.error(TAG, e, "No color matching " + data);
+				}
+			}
+		});
+		
+		injector.register(this);
+		
+		ImmutableBag<EntitySystem> systems = world.getSystems();
+		for (int i = 0, s = systems.size(); s > i; i++)
+		{
+			if (systems.get(i) instanceof InjectableProperties)
+				injector.register((InjectableProperties)systems.get(i));
+		}
+		
+		return injector;
 	}
 
 	private World initArtemis(SpriteBatch spriteBatch, Stage stage)
@@ -119,7 +175,7 @@ public class DemoScreen implements Screen
 		else
 			delta = 0;
 		
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(bg.r, bg.g, bg.b, bg.a);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		entityFactoryManager.addNewToWorld();
@@ -174,6 +230,25 @@ public class DemoScreen implements Screen
 		{
 			deltaMultiplier = (deltaMultiplier == 0) ? 1 : 0;
 		}
+		
+		@Command(name="inject config1.properties", bindings=@Shortcut(Keys.NUM_1))
+		public void inject1()
+		{
+			injector.injectRegistered(Gdx.files.absolute("config1.properties"));
+			Director.instance.send(Type.PROPERTIES_INJECTED, 1);
+		}
+		
+		@Command(name="inject config2.properties", bindings=@Shortcut(Keys.NUM_2))
+		public void inject2()
+		{
+			injector.injectRegistered(Gdx.files.absolute("config2.properties"));
+			Director.instance.send(Type.PROPERTIES_INJECTED, 2);
+		}
 	}
 
+	@Override
+	public void newValues(Properties properties)
+	{
+		
+	}
 }

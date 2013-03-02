@@ -101,6 +101,9 @@ public final class DebugUiManager extends Manager
 					case NO_HOVERED_ENTITY:
 						inspectorHud.setEntity(null);
 						break;
+					case PROPERTIES_INJECTED:
+						notificationHud.setText("Properties injected (%d)", event.getIntvalue());
+						break;
 						
 					default:
 						break;

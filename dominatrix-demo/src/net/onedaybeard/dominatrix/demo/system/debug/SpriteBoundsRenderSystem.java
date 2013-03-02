@@ -1,8 +1,14 @@
 package net.onedaybeard.dominatrix.demo.system.debug;
 
 import static net.onedaybeard.dominatrix.util.Disposer.free;
+
+import java.util.Properties;
+
 import lombok.Setter;
 import net.onedaybeard.dominatrix.demo.component.Renderable;
+import net.onedaybeard.dominatrix.demo.component.Tint;
+import net.onedaybeard.dominatrix.inject.InjectProperty;
+import net.onedaybeard.dominatrix.inject.InjectableProperties;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -18,14 +24,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
 
-public final class SpriteBoundsRenderSystem extends EntitySystem implements Disposable
+public final class SpriteBoundsRenderSystem extends EntitySystem implements Disposable, InjectableProperties
 {
 	public static final String TAG = SpriteBoundsRenderSystem.class.getSimpleName();
 	
 	private final OrthographicCamera camera;
 	private ShapeRenderer renderer;
 
+	@InjectProperty("bounds_color_from_tint") private boolean colorFromTint = false;
+	
 	private ComponentMapper<Renderable> renderableMapper;
+	private ComponentMapper<Tint> tintMapper;
 	
 	@Setter private Entity selected;
 
@@ -41,6 +50,7 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 	{
 		this.renderer = new ShapeRenderer();
 		renderableMapper = world.getMapper(Renderable.class);
+		tintMapper = world.getMapper(Tint.class);
 	}
 	
 	@Override
@@ -55,7 +65,6 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		Object[] array = ((Bag<Entity>)entities).getData();
 		
 		renderer.begin(ShapeType.Line);
-		renderer.setColor(Color.YELLOW);
 		for (int i = 0, s = entities.size(); s > i; i++)
 		{
 			processOutline((Entity)array[i]);
@@ -63,7 +72,7 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		renderer.end();
 		
 		renderer.begin(ShapeType.Line);
-		renderer.setColor(Color.RED);
+		renderer.setColor(Color.WHITE);
 		for (int i = 0, s = entities.size(); s > i; i++)
 		{
 			processOrigin((Entity)array[i]);
@@ -71,8 +80,18 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		renderer.end();
 	}
 
+	private Color getBoundsColor(Entity e)
+	{
+		if (colorFromTint && tintMapper.has(e))
+			return tintMapper.get(e).color();
+		else
+			return Color.YELLOW;
+	}
+
 	private void processOutline(Entity e)
 	{
+		renderer.setColor(getBoundsColor(e));
+		
 		Sprite sprite = renderableMapper.get(e).getSprite();
 		Rectangle bounds = sprite.getBoundingRectangle();
 		renderer.box(bounds.x, bounds.y, 0, bounds.width, bounds.height, 0);
@@ -84,7 +103,7 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		float x = sprite.getX() + sprite.getOriginX();
 		float y = sprite.getY() + sprite.getOriginY();
 		
-		renderer.circle(x, y, 0.1f, 4);
+		renderer.circle(x, y, 25, 4);
 	}
 
 	@Override
@@ -109,5 +128,11 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 	protected boolean checkProcessing()
 	{
 		return true;
+	}
+
+	@Override
+	public void newValues(Properties properties)
+	{
+		// nothing to see here, but if any additional steps need to be taken.
 	}
 }
