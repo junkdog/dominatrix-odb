@@ -90,19 +90,21 @@ public final class DebugUiManager extends Manager
 			@Override
 			protected boolean onReceive(CommandEvent event, CommandEvent.Type type)
 			{
+				int id = event.getValue();
+				
 				switch (type)
 				{
 					case ENTITY_SELECTED:
-						setEntity(world.getEntity(event.getIntvalue()));
+						setEntity(id != -1 ? world.getEntity(id) : null);
 						break;
 					case HOVERED_ENTITY:
-						inspectorHud.setEntity(world.getEntity(event.getIntvalue()));
+						inspectorHud.setEntity(world.getEntity(id));
 						break;
 					case NO_HOVERED_ENTITY:
 						inspectorHud.setEntity(null);
 						break;
 					case PROPERTIES_INJECTED:
-						notificationHud.setText("Properties injected (%d)", event.getIntvalue());
+						notificationHud.setText("Properties injected (%d)", id);
 						break;
 						
 					default:
@@ -111,7 +113,6 @@ public final class DebugUiManager extends Manager
 				
 				return false;
 			}
-			
 		});
 	}
 	
@@ -155,8 +156,6 @@ public final class DebugUiManager extends Manager
 		@Command(name="component editor", bindings=@Shortcut(Keys.F3))
 		public void a2_toggleComponentEditor()
 		{
-//			InputState inputState = reflexHud.isVisible() ? InputState.FULL : InputState.STAGE_ONLY;
-//			Director.instance.send(CHANGE_INPUT_STATE, inputState.ordinal());
 			reflexHud.toggle();
 		}
 		

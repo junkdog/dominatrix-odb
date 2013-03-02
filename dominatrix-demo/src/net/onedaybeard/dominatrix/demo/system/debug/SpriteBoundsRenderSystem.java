@@ -5,8 +5,12 @@ import static net.onedaybeard.dominatrix.util.Disposer.free;
 import java.util.Properties;
 
 import lombok.Setter;
+import net.onedaybeard.dominatrix.demo.Director;
 import net.onedaybeard.dominatrix.demo.component.Renderable;
 import net.onedaybeard.dominatrix.demo.component.Tint;
+import net.onedaybeard.dominatrix.demo.event.CommandEvent;
+import net.onedaybeard.dominatrix.demo.event.CommandEventListener;
+import net.onedaybeard.dominatrix.demo.event.CommandEvent.Type;
 import net.onedaybeard.dominatrix.inject.InjectProperty;
 import net.onedaybeard.dominatrix.inject.InjectableProperties;
 
@@ -36,7 +40,7 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 	private ComponentMapper<Renderable> renderableMapper;
 	private ComponentMapper<Tint> tintMapper;
 	
-	@Setter private Entity selected;
+	private Entity selected;
 
 	@SuppressWarnings("unchecked")
 	public SpriteBoundsRenderSystem(OrthographicCamera camera)
@@ -51,6 +55,27 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		this.renderer = new ShapeRenderer();
 		renderableMapper = world.getMapper(Renderable.class);
 		tintMapper = world.getMapper(Tint.class);
+		
+		Director.instance.getEventSystem().addReceiver(new CommandEventListener()
+		{
+			@Override
+			protected boolean accepts(CommandEvent event, Type type)
+			{
+				return type == Type.ENTITY_SELECTED;
+			}
+			
+			@Override
+			protected boolean onReceive(CommandEvent event, Type type)
+			{
+				int id = event.getValue();
+				if (id == -1)
+					selected = null;
+				else
+					selected = world.getEntity(id);
+				
+				return false;
+			}
+		});
 	}
 	
 	@Override
@@ -67,7 +92,9 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 		renderer.begin(ShapeType.Line);
 		for (int i = 0, s = entities.size(); s > i; i++)
 		{
-			processOutline((Entity)array[i]);
+			Entity e = (Entity)array[i];
+			renderer.setColor(getBoundsColor(e));
+			processOutline(e);
 		}
 		renderer.end();
 		
@@ -90,8 +117,6 @@ public final class SpriteBoundsRenderSystem extends EntitySystem implements Disp
 
 	private void processOutline(Entity e)
 	{
-		renderer.setColor(getBoundsColor(e));
-		
 		Sprite sprite = renderableMapper.get(e).getSprite();
 		Rectangle bounds = sprite.getBoundingRectangle();
 		renderer.box(bounds.x, bounds.y, 0, bounds.width, bounds.height, 0);

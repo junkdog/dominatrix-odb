@@ -106,10 +106,11 @@ public class MouseInputSystem extends TimerIntervalEntityProcessingSystem
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button)
 		{
-			if (button != 0 || hovered == null)
+			if (button != 0)
 				return false;
 			
-			Director.instance.send(CommandEvent.Type.ENTITY_SELECTED, hovered.getId());
+			int id = (hovered != null ? hovered.getId() : -1);
+			Director.instance.send(CommandEvent.Type.ENTITY_SELECTED, id);
 			
 			return false;
 		}
