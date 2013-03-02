@@ -1,5 +1,6 @@
 package net.onedaybeard.dominatrix.inject;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.Properties;
 
 import net.onedaybeard.dominatrix.util.Logger;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
 
@@ -69,6 +71,20 @@ public class PropertyInjector
 	{
 		if (properties != null)
 			injectRegistered(properties);
+	}
+	
+	public void injectRegistered(FileHandle file)
+	{
+		try
+		{
+			Properties properties = new Properties();
+			properties.load(file.read());
+			injectRegistered(properties);
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void injectRegistered(Properties properties)

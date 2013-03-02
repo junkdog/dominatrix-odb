@@ -19,7 +19,7 @@ public class ColorWriter implements FieldTypeWriter
 	{
 		long c = Long.parseLong(value, 16);
 		if (value.length() == 6)
-			c |= 0xff << 24;
+			c = (c << 8) | 0xff; // << 24;
 
 		Color color = new Color(
 			(c >> 24 & 0xff) / 255f,
