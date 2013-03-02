@@ -180,6 +180,8 @@ public final class ComponentReflexHud
 						style.fontColor = (success ? Color.WHITE : errorColor);
 						if (success)
 							text.setText(reflex.on(instance, field).getAsString());
+						
+						entity.changedInWorld();
 					}
 					if (keycode == Keys.ESCAPE)
 					{
