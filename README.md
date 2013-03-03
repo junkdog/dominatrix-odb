@@ -31,8 +31,7 @@ Javadocs are a little scarce at the moment, see demo project for details.
 In the screen or main class:
 ```
     entityFactoryManager = EntityFactoryManager.from(
-      Gdx.files.internal("data/archetypes.json"),
-    	JsonKey.class, true);
+        Gdx.files.internal("data/archetypes.json"), JsonKey.class, true);
                 
     World world = new World();
 	world.setManager(entityFactoryManager);       
