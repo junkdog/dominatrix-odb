@@ -29,7 +29,7 @@ Javadocs are a little scarce at the moment, see demo project for details.
 
 ### The EntityFactoryManager
 In the screen or main class:
-```
+```java
     entityFactoryManager = EntityFactoryManager.from(
         Gdx.files.internal("data/archetypes.json"), JsonKey.class, true);
                 
@@ -52,7 +52,7 @@ After starting, press **F1** to toggle keyboard shortcuts: the shortcuts demonst
 the functionality.
 
 ### Maven
-```
+```xml
     <repositories>
         <repository>
         	<id>artemis-odb</id>
