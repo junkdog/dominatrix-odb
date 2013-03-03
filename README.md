@@ -1,5 +1,5 @@
-dominatrix-odb is a small, but diverse library for working with [libgdx](http://libgdx.badlogicgames.com/) + 
-[artemis](http://gamadu.com/artemis/), primarily dealing with runtime introspection and editing.
+dominatrix-odb is a small, but diverse library for working with [libGDX](http://libgdx.badlogicgames.com/) + 
+[Artemis Entity System Framework](http://gamadu.com/artemis/), primarily dealing with runtime introspection and editing.
 
 ## Features
  - EntityFactoryManager for creating entities from json.
@@ -20,6 +20,8 @@ dominatrix-odb is a small, but diverse library for working with [libgdx](http://
    json unserializing.
  - Uses a slightly modified [fork](https://github.com/junkdog/artemis-odb) of artemis, allowing
    for systems to be toggled at runtime.
+ - The demo uses [Project Lombok](http://projectlombok.org/) to reduce boilerplate nonsense. See their site
+   for Eclipse/Netbeans installation. (At a later stage, there may be a delomboked - vanilla java - version).
 
 
 ## Usage
@@ -27,10 +29,9 @@ Javadocs are a little scarce at the moment, see demo project for details.
 
 ### The EntityFactoryManager
 In the screen or main class:
-```
+```java
     entityFactoryManager = EntityFactoryManager.from(
-      Gdx.files.internal("data/archetypes.json"),
-    	JsonKey.class, true);
+        Gdx.files.internal("data/archetypes.json"), JsonKey.class, true);
                 
     World world = new World();
 	world.setManager(entityFactoryManager);       
@@ -51,7 +52,7 @@ After starting, press **F1** to toggle keyboard shortcuts: the shortcuts demonst
 the functionality.
 
 ### Maven
-```
+```xml
     <repositories>
         <repository>
         	<id>artemis-odb</id>
