@@ -20,8 +20,8 @@ dominatrix-odb is a small, but diverse library for working with [libgdx](http://
    json unserializing.
  - Uses a slightly modified [fork](https://github.com/junkdog/artemis-odb) of artemis, allowing
    for systems to be toggled at runtime.
- - The demo uses [Project Lombok](http://projectlombok.org/) to reduce boilerplate noise. See their site
-   for Eclipse/Netbeans installation. (There might be a delomboked, vanilla java, version at a later stage).
+ - The demo uses [Project Lombok](http://projectlombok.org/) to reduce boilerplate nonsense. See their site
+   for Eclipse/Netbeans installation. (At a later stage, there may be a delomboked - vanilla java - version).
 
 
 ## Usage
