@@ -16,7 +16,7 @@ dominatrix-odb is a small, but diverse library for working with [libgdx](http://
 
 
 ## Usage
-Javadocs are a little scarce atm, see demo for details.
+Javadocs are a little scarce at the moment, see demo project for details.
 
 ### The EntityFactoryManager
 In the screen or main class:
