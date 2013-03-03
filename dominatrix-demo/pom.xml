@@ -22,6 +22,27 @@
 			<id>gdx-nightlies</id>
 			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
 		</repository>
+		<repository>
+			<id>keyflection-gdx</id>
+			<url>https://raw.github.com/junkdog/keyflection-gdx/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>artemis-odb</id>
+			<url>https://raw.github.com/junkdog/artemis-odb/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>dominatrix-odb</id>
+			<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<dependencies>

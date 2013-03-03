@@ -22,7 +22,13 @@
 			<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
 			<snapshots>
 				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>artemis-odb</id>
+			<url>https://raw.github.com/junkdog/artemis-odb/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>

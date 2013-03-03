@@ -76,6 +76,12 @@
 				<module>dominatrix-odb</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>demo</id>
+			<modules>
+				<module>dominatrix-demo</module>
+			</modules>
+		</profile>
 	</profiles>
 	
 	<build>
