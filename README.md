@@ -1,5 +1,5 @@
-dominatrix-odb is a small, but diverse library for working with [libgdx](http://libgdx.badlogicgames.com/) + 
-[artemis](http://gamadu.com/artemis/), primarily dealing with runtime introspection and editing.
+dominatrix-odb is a small, but diverse library for working with [libGDX](http://libgdx.badlogicgames.com/) + 
+[Artemis Entity System Framework](http://gamadu.com/artemis/), primarily dealing with runtime introspection and editing.
 
 ## Features
  - EntityFactoryManager for creating entities from json.
