@@ -154,6 +154,8 @@ public class DemoScreen implements Screen, InjectableProperties
 		multiplexer.addProcessor(new KeyflectionInputProcessor(new Shortcuts()));
 		
 		Gdx.input.setInputProcessor(multiplexer);
+		
+		Director.instance.send(Type.TOGGLE_HELP);
 	}
 
 	private static OrthographicCamera createCamera()

@@ -106,7 +106,9 @@ public final class DebugUiManager extends Manager
 					case PROPERTIES_INJECTED:
 						notificationHud.setText("Properties injected (%d)", id);
 						break;
-						
+					case TOGGLE_HELP:
+						helpOverlay.toggle();
+						break;
 					default:
 						break;
 				}
