@@ -236,14 +236,14 @@ public class DemoScreen implements Screen, InjectableProperties
 		@Command(name="inject config1.properties", bindings=@Shortcut(Keys.NUM_1))
 		public void inject1()
 		{
-			injector.injectRegistered(Gdx.files.absolute("config1.properties"));
+			injector.injectRegistered(Gdx.files.internal("config1.properties"));
 			Director.instance.send(Type.PROPERTIES_INJECTED, 1);
 		}
 		
 		@Command(name="inject config2.properties", bindings=@Shortcut(Keys.NUM_2))
 		public void inject2()
 		{
-			injector.injectRegistered(Gdx.files.absolute("config2.properties"));
+			injector.injectRegistered(Gdx.files.internal("config2.properties"));
 			Director.instance.send(Type.PROPERTIES_INJECTED, 2);
 		}
 	}
