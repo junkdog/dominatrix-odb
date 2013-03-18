@@ -1,5 +1,8 @@
 package net.onedaybeard.dominatrix.demo.manager;
 
+import java.lang.reflect.Method;
+import java.util.Comparator;
+
 import lombok.Getter;
 import net.onedaybeard.dominatrix.demo.Assets;
 import net.onedaybeard.dominatrix.demo.Director;
@@ -18,6 +21,7 @@ import net.onedaybeard.keyflection.CommandController;
 import net.onedaybeard.keyflection.KeyflectionInputProcessor;
 import net.onedaybeard.keyflection.annotation.Command;
 import net.onedaybeard.keyflection.annotation.Shortcut;
+import net.onedaybeard.keyflection.sort.ShortcutComparator;
 
 import com.artemis.Component;
 import com.artemis.Entity;
@@ -127,42 +131,42 @@ public final class DebugUiManager extends Manager
 	protected class Shortcuts implements CommandController
 	{
 		@Command(name="quit/close component window", bindings=@Shortcut(Keys.ESCAPE))
-		public void a0_exit()
+		public void exit()
 		{
 			if (componentsHud.isVisible())
 				componentsHud.setVisible(false);
 			else if (reflexHud.isVisible())
-				a2_toggleComponentEditor();
+				toggleComponentEditor();
 			else
 				Gdx.app.exit();
 		}
 		
 		@Command(name="help!", bindings=@Shortcut(Keys.F1))
-		public void a0b_toggleHelp()
+		public void toggleHelp()
 		{
 			helpOverlay.toggle();
 		}
 		
 		@Command(name="cycle entity inspector view", bindings=@Shortcut(Keys.F2))
-		public void a10_toggleEntityInspectorView()
+		public void toggleEntityInspectorView()
 		{
 			inspectorHud.cycleInspectorView();
 		}
 		
 		@Command(name="entity inspector", bindings=@Shortcut({Keys.SHIFT_LEFT, Keys.F2}))
-		public void a11_toggleEntityInspector()
+		public void toggleEntityInspector()
 		{
 			inspectorHud.toggle();
 		}
 		
 		@Command(name="component editor", bindings=@Shortcut(Keys.F3))
-		public void a2_toggleComponentEditor()
+		public void toggleComponentEditor()
 		{
 			reflexHud.toggle();
 		}
 		
 		@Command(name="add component(s)", bindings=@Shortcut(Keys.F4))
-		public void a3_addComponentsToEditor()
+		public void addComponentsToEditor()
 		{
 			if (componentsHud.isVisible())
 			{
@@ -176,13 +180,13 @@ public final class DebugUiManager extends Manager
 		}
 		
 		@Command(name="systems", bindings=@Shortcut(Keys.F5))
-		public void a3_toggleSystems()
+		public void toggleSystems()
 		{
 			systemsHud.toggle();
 		}
 		
 		@Command(name="copy json for hovered entity", bindings=@Shortcut({Keys.CONTROL_LEFT, Keys.C}))
-		public void b0_copyHoveredEntity()
+		public void copyHoveredEntity()
 		{
 			String json = inspectorHud.getJsonForHovered();
 			if (json != null)
@@ -194,6 +198,18 @@ public final class DebugUiManager extends Manager
 			{
 				notificationHud.setText("No entity to copy to clipboard.");
 			}
+		}
+
+		@Override
+		public String groupName()
+		{
+			return "Systems";
+		}
+
+		@Override
+		public Comparator<Method> commandComparator()
+		{
+			return new ShortcutComparator();
 		}
 	}
 }

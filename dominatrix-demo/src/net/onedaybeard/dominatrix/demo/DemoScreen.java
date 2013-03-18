@@ -1,6 +1,8 @@
 package net.onedaybeard.dominatrix.demo;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Comparator;
 import java.util.Properties;
 
 import net.onedaybeard.dominatrix.artemis.EntityFactoryManager;
@@ -245,6 +247,18 @@ public class DemoScreen implements Screen, InjectableProperties
 		{
 			injector.injectRegistered(Gdx.files.internal("config2.properties"));
 			Director.instance.send(Type.PROPERTIES_INJECTED, 2);
+		}
+
+		@Override
+		public String groupName()
+		{
+			return null;
+		}
+
+		@Override
+		public Comparator<Method> commandComparator()
+		{
+			return null;
 		}
 	}
 
