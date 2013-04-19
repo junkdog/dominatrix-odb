@@ -58,6 +58,7 @@
 			<groupId>net.onedaybeard</groupId>
 			<artifactId>artemis-odb</artifactId>
 			<version>0.3.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
