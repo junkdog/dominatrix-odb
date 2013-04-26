@@ -52,15 +52,12 @@ After starting, press **F1** to toggle keyboard shortcuts: the shortcuts demonst
 the functionality.
 
 ### Maven
+
+**Nota Bene:** Maven repository on github isn't up to date; dominatrix has to be manually
+installed (`mvn -Pgdx-odb install`) prior to being used.
+
 ```xml
     <repositories>
-        <repository>
-        	<id>artemis-odb</id>
-    		<url>https://raw.github.com/junkdog/artemis-odb/mvn-repo/</url>
-    		<snapshots>
-    			<enabled>true</enabled>
-    		</snapshots>
-    	</repository>
     	<repository>
     		<id>dominatrix-odb</id>
     		<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
@@ -74,7 +71,7 @@ the functionality.
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
 			<artifactId>artemis-odb</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
