@@ -9,14 +9,14 @@ import com.artemis.Component;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.JsonValue;
 
 class FileHandleCacher implements FactoryInstance
 {
-	private static Map<String, Object> cache = new HashMap<String, Object>();
+	private static Map<String, JsonValue> cache = new HashMap<String, JsonValue>();
 
 	private JsonComponentFactory factory;
-	private Object jsonData;
+	private JsonValue jsonData;
 
 	public FileHandleCacher(FileHandle file, String componentPackageName)
 	{
@@ -43,14 +43,13 @@ class FileHandleCacher implements FactoryInstance
 		return factory.getEntityTypes();
 	}
 
-	@SuppressWarnings("unchecked")	@Override
-	public Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path)
+	public Array<JsonValue> getArray(String path)
 	{
-		return (Array<ObjectMap<String,ObjectMap<?,?>>>)factory.getArray(path);
+		return factory.getArray(path);
 	}
 
 	@Override
-	public Array<Component> getComponents(ObjectMap<?,?> data)
+	public Array<Component> getComponents(JsonValue data)
 	{
 		try
 		{

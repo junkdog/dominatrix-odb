@@ -24,13 +24,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>artemis-odb</id>
-			<url>https://raw.github.com/junkdog/artemis-odb/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 
 	<scm>
@@ -55,9 +48,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.onedaybeard</groupId>
+			<groupId>net.onedaybeard.artemis</groupId>
 			<artifactId>artemis-odb</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

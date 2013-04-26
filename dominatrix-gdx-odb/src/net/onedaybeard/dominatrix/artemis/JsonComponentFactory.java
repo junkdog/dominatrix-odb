@@ -1,14 +1,10 @@
 package net.onedaybeard.dominatrix.artemis;
 
-import static net.onedaybeard.dominatrix.util.Logger.error;
-
-import java.util.Iterator;
-
 import com.artemis.Component;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * A factory for extracting JSON serialized components by entity type.
@@ -20,11 +16,11 @@ public final class JsonComponentFactory
 {
 	public static final String TAG = JsonComponentFactory.class.getSimpleName();
 	
-	private Object jsonData;
+	private JsonValue jsonData;
 	private final String componentPackage;
 	private final Json json;
 	
-	JsonComponentFactory(Object jsonData, String componentPackage)
+	JsonComponentFactory(JsonValue jsonData, String componentPackage)
 	{		
 		json = new Json();
 		this.jsonData = jsonData;
@@ -59,19 +55,18 @@ public final class JsonComponentFactory
 		return components;
 	}
 	
-	@SuppressWarnings("unchecked")
-	Array<Component> getComponents(ObjectMap<?,?> data) throws ClassNotFoundException
+	Array<Component> getComponents(JsonValue data) throws ClassNotFoundException
 	{
-		ObjectMap<String,?> componentData = (ObjectMap<String,?>)jsonDataForKeyPath("components", data);
-		Iterator<String> componentIterator = componentData.keys().iterator();
+		JsonValue componentData = data.get("components");
 		
 		Array<Component> components = new Array<Component>();
-		while (componentIterator.hasNext())
+		for (JsonValue entry = componentData.child(); entry != null; entry = entry.next())
 		{
-			String componentName = componentIterator.next();
+			String componentName = entry.name();
 			Class<?> componentClass = Class.forName(componentPackage + "." + componentName);
-			components.add((Component)json.readValue(componentName, componentClass,
-				jsonDataForKeyPath("components", data)));
+			
+			Object value = json.fromJson(componentClass, entry.toString());
+			components.add((Component)value);
 		}
 		
 		return components;
@@ -102,12 +97,17 @@ public final class JsonComponentFactory
 		return getKeys(".");
 	}
 	
-	public Array<?> getArray(String path)
+	public Array<JsonValue> getArray(String path)
 	{
 		try
 		{
-			Object jsonData = jsonDataForKeyPath(path, this.jsonData);
-			return (Array<?>)jsonData;
+			JsonValue jsonData = jsonDataForKeyPath(path, this.jsonData);
+			Array<JsonValue> children = new Array<JsonValue>();
+			for (JsonValue child = jsonData.child(); child != null; child = child.next())
+			{
+				children.add(child);
+			}
+			return children;
 		}
 		catch (Exception e)
 		{
@@ -116,30 +116,35 @@ public final class JsonComponentFactory
 		}
 	}
 	
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	private Array<String> getKeys(String path)
 	{
-		ObjectMap<String, ObjectMap> data = 
-			(ObjectMap<String, ObjectMap>)jsonDataForKeyPath(path, jsonData);
+		JsonValue data = jsonDataForKeyPath(path, jsonData);
+		Array<String> keys = new Array<String>();
+		for (JsonValue key = data.child(); key != null; key = key.next())
+		{
+			keys.add(key.name());
+		}
 		
-		return data.keys().toArray();
+		return keys;
 	}
 	
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static Object jsonDataForKeyPath(String path, Object jsonData)
+	private static JsonValue jsonDataForKeyPath(String path, JsonValue jsonData)
 	{
+		if (path.equals(".")) return jsonData;
+		
 		String[] keys = path.split("\\.");
-		Object data = jsonData;
-		for (int i = 0; i<keys.length; i++)
+		JsonValue data = jsonData;
+		for (int i = 0; i<keys.length - 1; i++)
 		{
 			if (data == null)
 				break;
 			
-			if (data instanceof ObjectMap<?, ?>)
-				data = ((ObjectMap<String, ObjectMap>)data).get(keys[i]);
-			else
-				error(TAG, "data is of type " + data.getClass());
+			data = data.getChild(keys[i]);
 		}
+		
+		if (data == null || !data.name().equals(keys[keys.length - 1]))
+			throw new RuntimeException("Unable to find " + path);
+
 		return data;
 	}
 	
@@ -147,8 +152,8 @@ public final class JsonComponentFactory
 	public interface FactoryInstance
 	{
 		Array<Component> getComponents(String entityType);
-		Array<Component> getComponents(ObjectMap<?,?> data);
+		Array<Component> getComponents(JsonValue data);
 		Array<String> getEntityTypes();
-		Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path);
+		Array<JsonValue> getArray(String path);
 	}
 }

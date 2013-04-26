@@ -5,12 +5,14 @@ import net.onedaybeard.dominatrix.artemis.JsonComponentFactory.FactoryInstance;
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 
 final class UncachedJsonContents implements FactoryInstance
 {
 	private final JsonComponentFactory factory;
-	private final Object jsonData;
+	private final JsonValue jsonData;
+//	private final Object jsonData;
 
 	public UncachedJsonContents(String json, String componentPackageName)
 	{
@@ -33,13 +35,21 @@ final class UncachedJsonContents implements FactoryInstance
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path)
+	public Array<JsonValue> getArray(String path)
 	{
-		return (Array<ObjectMap<String,ObjectMap<?,?>>>)factory.getArray(path);
+		return factory.getArray(path);
 	}
+//	
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Array<ObjectMap<String, ObjectMap<?, ?>>> getArray(String path)
+//	{
+//		return (Array<ObjectMap<String,ObjectMap<?,?>>>)factory.getArray(path);
+//	}
 
 	@Override
-	public Array<Component> getComponents(ObjectMap<?,?> data)
+//	public Array<Component> getComponents(ObjectMap<?,?> data)
+	public Array<Component> getComponents(JsonValue data)
 	{
 		try
 		{
