@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import lombok.Getter;
 import net.onedaybeard.dominatrix.artemis.ComponentNameComparator;
 import net.onedaybeard.dominatrix.reflect.ColorWriter;
+import net.onedaybeard.dominatrix.reflect.FieldTypeWriter;
 import net.onedaybeard.dominatrix.reflect.Reflex;
 import net.onedaybeard.dominatrix.reflect.Vector2Writer;
 
@@ -67,6 +68,11 @@ public final class ComponentReflexHud
 		
 		initUi(ui, skin);
 		ui.addActor(table);
+	}
+	
+	public void addParser(FieldTypeWriter fieldTypeWriter)
+	{
+		reflex.addParser(fieldTypeWriter);
 	}
 	
 	private void initUi(Stage ui, Skin skin)

@@ -20,7 +20,7 @@ public final class BackgroundTexture
 	{
 		if (texture == null)
 		{
-			Pixmap newsBackground = new Pixmap(20, 20, Format.RGBA4444);
+			Pixmap newsBackground = new Pixmap(32, 32, Format.RGBA4444);
 			newsBackground.setColor(new Color(0.15f, 0.15f, 0.320f, 0.6f));
 			newsBackground.fill();
 			texture = new Texture(newsBackground);

@@ -64,6 +64,9 @@
 	
 	<profiles>
 		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<id>gdx-odb</id>
 			<modules>
 				<module>dominatrix-odb</module>

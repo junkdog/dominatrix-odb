@@ -2,6 +2,7 @@ package net.onedaybeard.dominatrix.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,7 +101,10 @@ public class Reflex
 			public String getAsString()
 			{
 				Object object = get();
-				return object != null ? object.toString() : "";
+				if (object != null && object.getClass().isArray())
+					return Arrays.toString((Object[])object);
+				else
+					return object != null ? object.toString() : "";
 			}
 		};
 	}
