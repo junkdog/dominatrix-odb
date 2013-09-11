@@ -13,7 +13,7 @@
 	<properties>
 		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
 		<keyflection.version>0.1.0-SNAPSHOT</keyflection.version>
-		<artemis.odb.version>0.3.0-SNAPSHOT</artemis.odb.version>
+		<artemis.odb.version>0.3.4</artemis.odb.version>
 		<mainClass>net.onedaybeard.dominatrix.demo.DemoApp</mainClass>
 	</properties>
 
@@ -25,13 +25,6 @@
 		<repository>
 			<id>keyflection-gdx</id>
 			<url>https://raw.github.com/junkdog/keyflection-gdx/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>artemis-odb</id>
-			<url>https://raw.github.com/junkdog/artemis-odb/mvn-repo/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -57,9 +50,9 @@
 			<version>${gdx.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.onedaybeard</groupId>
+			<groupId>net.onedaybeard.artemis</groupId>
 			<artifactId>artemis-odb</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>${artemis.odb.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard</groupId>
