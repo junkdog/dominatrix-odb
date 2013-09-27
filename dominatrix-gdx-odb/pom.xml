@@ -15,14 +15,7 @@
 	<repositories>
 		<repository>
 			<id>gdx-nightlies</id>
-			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
-		</repository>
-		<repository>
-			<id>dominatrix-odb-mvn-repo</id>
-			<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
 
@@ -42,7 +35,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.badlogic.gdx</groupId>
+			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
 			<scope>provided</scope>

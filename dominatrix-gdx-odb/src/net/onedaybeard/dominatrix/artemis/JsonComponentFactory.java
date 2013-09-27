@@ -43,7 +43,7 @@ public final class JsonComponentFactory
 			jsonDataForKeyPath(entity + ".components", this.jsonData));
 	}
 	
-	Array<Component> getComponents(String entityName)
+	public Array<Component> getComponents(String entityName)
 	{
 		Array<Component> components = new Array<Component>();
 		Array<Class<?>> componentTypes = getComponentTypes(entityName);
