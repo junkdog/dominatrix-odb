@@ -86,7 +86,8 @@ public final class SystemsHud
 	
 	private static String findCommonPackage(ImmutableBag<EntitySystem> systems)
 	{
-		String prefix = systems.get(0).getClass().getPackage().getName();
+		String prefix = "";
+//		String prefix = systems.get(0).getClass().getPackage().getName();
 		for (int i = 1, s = systems.size(); s > i; i++)
 		{
 			String p = systems.get(i).getClass().getPackage().getName();

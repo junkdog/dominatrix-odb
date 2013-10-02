@@ -23,6 +23,7 @@ public final class EntityInspectorHud
 	
 	private Table table;
 	private Label hovered;
+	private boolean visible;
 	
 	private Entity lastEntity;
 	
@@ -40,7 +41,7 @@ public final class EntityInspectorHud
 		initialize(world);
 		ui.addActor(table);
 		
-		table.setVisible(false);
+		setVisible(false);
 		view = View.ENTITY;
 		
 		marshaller = new JsonEntitySerializer(OutputType.json);
@@ -54,10 +55,12 @@ public final class EntityInspectorHud
 		lastEntity = e;
 		
 		if (lastEntity != null)
+			
 			hovered.setText(getTextForEntity(e));
 		else
 			hovered.setText("");
 		
+		table.setVisible(visible && e != null);
 		table.pack();
 	}
 
@@ -116,6 +119,7 @@ public final class EntityInspectorHud
 
 	public void setVisible(boolean visible)
 	{
+		this.visible = visible;
 		table.setVisible(visible);
 	}
 	
