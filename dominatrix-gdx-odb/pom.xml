@@ -9,15 +9,8 @@
 	<artifactId>dominatrix-gdx-odb</artifactId>
 
 	<properties>
-		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
+		<gdx.version>0.9.9</gdx.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>gdx-nightlies</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
 
 	<scm>
 		<url>https://github.com/junkdog/dominatrix-odb/</url>
