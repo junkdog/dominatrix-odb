@@ -9,7 +9,7 @@
 	<artifactId>dominatrix-gdx-odb</artifactId>
 
 	<properties>
-		<gdx.version>0.9.9</gdx.version>
+		<gdx.version>1.2.0</gdx.version>
 	</properties>
 
 	<scm>
@@ -17,14 +17,6 @@
 		<connection>scm:git:git@github.com:junkdog/dominatrix-odb.git</connection>
 		<developerConnection>scm:git:git@github.com:junkdog/dominatrix-odb.git</developerConnection>
 	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>internal.repo</id>
-			<name>Temporary Staging Repository</name>
-			<url>file://${project.build.directory}/mvn-repo</url>
-		</repository>
-	</distributionManagement>
 
 	<dependencies>
 		<dependency>
