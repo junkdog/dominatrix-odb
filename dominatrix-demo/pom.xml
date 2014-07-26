@@ -11,17 +11,13 @@
 	<description>Sample usage.</description>
 
 	<properties>
-		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
+		<gdx.version>1.2.0</gdx.version>
 		<keyflection.version>0.1.0-SNAPSHOT</keyflection.version>
-		<artemis.odb.version>0.3.4</artemis.odb.version>
+		<artemis.odb.version>0.6.5</artemis.odb.version>
 		<mainClass>net.onedaybeard.dominatrix.demo.DemoApp</mainClass>
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>gdx-nightlies</id>
-			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
-		</repository>
 		<repository>
 			<id>keyflection-gdx</id>
 			<url>https://raw.github.com/junkdog/keyflection-gdx/mvn-repo/</url>
@@ -40,12 +36,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.badlogic.gdx</groupId>
+			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.badlogic.gdx</groupId>
+			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-backend-lwjgl</artifactId>
 			<version>${gdx.version}</version>
 		</dependency>
