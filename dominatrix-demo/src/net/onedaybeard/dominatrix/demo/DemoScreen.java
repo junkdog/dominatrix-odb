@@ -37,10 +37,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class DemoScreen implements Screen, InjectableProperties
 {
@@ -59,6 +60,8 @@ public class DemoScreen implements Screen, InjectableProperties
 	
 	@InjectProperty("background_clear_color") private Color bg = Color.BLACK;
 
+	private ScreenViewport viewport;
+
 	
 	public DemoScreen()
 	{
@@ -66,7 +69,10 @@ public class DemoScreen implements Screen, InjectableProperties
 		
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
-		stage = new Stage(w, h, false, Director.instance.getSpriteBatch());
+		
+		viewport = new ScreenViewport(camera);
+//		stage = new Stage(w, h, false, Director.instance.getSpriteBatch());
+		stage = new Stage(viewport, Director.instance.getSpriteBatch());
 		
 		world = initArtemis(Director.instance.getSpriteBatch(), stage);
 		initEntities(world);
@@ -180,7 +186,7 @@ public class DemoScreen implements Screen, InjectableProperties
 			delta = 0;
 		
 		Gdx.gl.glClearColor(bg.r, bg.g, bg.b, bg.a);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		entityFactoryManager.addNewToWorld();
 

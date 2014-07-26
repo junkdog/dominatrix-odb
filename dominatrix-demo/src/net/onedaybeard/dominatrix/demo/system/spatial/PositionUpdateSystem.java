@@ -35,7 +35,7 @@ public final class PositionUpdateSystem extends EntityProcessingSystem
 		Vector2 point = positionMapper.get(e).point();
 		Vector2 velocity = vector2(velocityMapper.get(e).get());
 		
-		point.add(velocity.mul(world.delta));
+		point.add(velocity.scl(world.delta));
 		
 		free(velocity);
 	}
