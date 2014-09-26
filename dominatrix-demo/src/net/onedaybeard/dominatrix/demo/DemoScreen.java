@@ -31,6 +31,7 @@ import net.onedaybeard.keyflection.annotation.Shortcut;
 
 import com.artemis.EntitySystem;
 import com.artemis.World;
+import com.artemis.managers.UuidEntityManager;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -71,7 +72,6 @@ public class DemoScreen implements Screen, InjectableProperties
 		int h = Gdx.graphics.getHeight();
 		
 		viewport = new ScreenViewport(camera);
-//		stage = new Stage(w, h, false, Director.instance.getSpriteBatch());
 		stage = new Stage(viewport, Director.instance.getSpriteBatch());
 		
 		world = initArtemis(Director.instance.getSpriteBatch(), stage);
@@ -131,6 +131,7 @@ public class DemoScreen implements Screen, InjectableProperties
 		world.setManager(new RenderableResolverManager());
 		world.setManager(new ScaleManager());
 		world.setManager(new DebugUiManager(stage));
+		world.setManager(new UuidEntityManager());
 		
 		Director.instance.setEventSystem(world.setSystem(new EventSystem()));
 		world.setSystem(new MouseInputSystem());

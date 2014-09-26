@@ -13,26 +13,9 @@
 	<properties>
 		<gdx.version>1.2.0</gdx.version>
 		<keyflection.version>0.1.0-SNAPSHOT</keyflection.version>
-		<artemis.odb.version>0.6.5</artemis.odb.version>
+		<artemis.odb.version>0.7.1</artemis.odb.version>
 		<mainClass>net.onedaybeard.dominatrix.demo.DemoApp</mainClass>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>keyflection-gdx</id>
-			<url>https://raw.github.com/junkdog/keyflection-gdx/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>dominatrix-odb</id>
-			<url>https://raw.github.com/junkdog/dominatrix-odb/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -44,6 +27,12 @@
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-backend-lwjgl</artifactId>
 			<version>${gdx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-platform</artifactId>
+			<version>${gdx.version}</version>
+			<classifier>natives-desktop</classifier>
 		</dependency>
 		<dependency>
 			<groupId>net.onedaybeard.artemis</groupId>
@@ -81,7 +70,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
