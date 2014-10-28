@@ -6,7 +6,6 @@ import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.ObjectMap;
 
 final class UncachedJsonContents implements FactoryInstance
 {

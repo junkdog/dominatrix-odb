@@ -2,8 +2,6 @@ package net.onedaybeard.dominatrix.reflect;
 
 import java.lang.reflect.Field;
 
-import net.onedaybeard.dominatrix.reflect.FieldTypeWriter;
-
 import com.badlogic.gdx.math.Vector2;
 
 public class Vector2Writer implements FieldTypeWriter

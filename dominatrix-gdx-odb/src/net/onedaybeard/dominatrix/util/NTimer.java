@@ -1,7 +1,5 @@
 package net.onedaybeard.dominatrix.util;
 
-import lombok.Getter;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Pool;
 
@@ -13,7 +11,7 @@ public final class NTimer
 
 	private long total;
 	private long lastStart;
-	@Getter private int runs;
+	private int runs;
 	
 	private boolean running;
 
@@ -107,5 +105,9 @@ public final class NTimer
 			object.reset();
 			super.free(object);
 		}
+	}
+
+	public int getRuns() {
+		return runs;
 	}
 }

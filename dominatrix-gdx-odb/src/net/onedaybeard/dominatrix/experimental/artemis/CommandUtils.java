@@ -1,6 +1,10 @@
 package net.onedaybeard.dominatrix.experimental.artemis;
 
 
+import net.onedaybeard.dominatrix.annotation.Sloppy;
+import net.onedaybeard.dominatrix.artemis.ComponentNameComparator;
+import net.onedaybeard.dominatrix.util.Tree;
+
 import com.artemis.Component;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
@@ -8,10 +12,6 @@ import com.artemis.World;
 import com.artemis.managers.TagManager;
 import com.artemis.utils.Bag;
 import com.artemis.utils.ImmutableBag;
-
-import net.onedaybeard.dominatrix.annotation.Sloppy;
-import net.onedaybeard.dominatrix.artemis.ComponentNameComparator;
-import net.onedaybeard.dominatrix.util.Tree;
 
 @Sloppy("ought to be refnuqued")
 public final class CommandUtils

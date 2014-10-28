@@ -1,8 +1,5 @@
 package net.onedaybeard.dominatrix.tuple;
 
-import lombok.ToString;
-
-@ToString
 public class HashCachingTuple4<A, B, C, D> extends Tuple4<A,B,C,D>
 {
 

@@ -7,7 +7,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.visible;
 
 import java.lang.reflect.Field;
 
-import lombok.Getter;
 import net.onedaybeard.dominatrix.artemis.ComponentNameComparator;
 import net.onedaybeard.dominatrix.reflect.ColorWriter;
 import net.onedaybeard.dominatrix.reflect.FieldTypeWriter;
@@ -44,7 +43,7 @@ public final class ComponentReflexHud
 {
 	private Tree tree;
 	private final Skin skin;
-	@Getter private Entity entity;
+	private Entity entity;
 	private Table table;
 	private final Reflex reflex;
 	

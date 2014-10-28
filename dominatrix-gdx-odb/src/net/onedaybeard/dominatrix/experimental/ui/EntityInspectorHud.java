@@ -1,6 +1,5 @@
 package net.onedaybeard.dominatrix.experimental.ui;
 
-import lombok.Setter;
 import net.onedaybeard.dominatrix.artemis.JsonEntitySerializer;
 import net.onedaybeard.dominatrix.experimental.artemis.CommandUtils;
 import net.onedaybeard.dominatrix.experimental.artemis.CommandUtils.ObjectNode;
@@ -30,7 +29,7 @@ public final class EntityInspectorHud
 	private enum View {ENTITY, JSON};
 	private View view;
 	
-	@Setter private JsonKeyResolver jsonKeyResolver;
+	private JsonKeyResolver jsonKeyResolver;
 	
 	private JsonEntitySerializer marshaller;
 	

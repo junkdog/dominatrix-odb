@@ -2,8 +2,6 @@ package net.onedaybeard.dominatrix.reflect;
 
 import java.lang.reflect.Field;
 
-import net.onedaybeard.dominatrix.reflect.FieldTypeWriter;
-
 import com.badlogic.gdx.graphics.Color;
 
 public class ColorWriter implements FieldTypeWriter

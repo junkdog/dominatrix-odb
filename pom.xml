@@ -16,15 +16,6 @@
 		<developerConnection>scm:git:git@github.com:junkdog/dominatrix-odb.git</developerConnection>
 	</scm>
 	
-	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>0.11.6</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-	
 	<developers>
 		<developer>
 			<name>Adrian Papari</name>

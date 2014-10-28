@@ -3,8 +3,6 @@ package net.onedaybeard.dominatrix.experimental.ui;
 import java.util.Comparator;
 import java.util.Set;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.onedaybeard.dominatrix.artemis.ComponentUtils;
 import net.onedaybeard.dominatrix.artemis.JsonId;
 
@@ -30,7 +28,7 @@ public final class ComponentsHud
 	private final Window componentsWindow;
 	private Entity entity;
 	
-	@Setter @Getter private OnEntityChangedListener onEntityChangedListener;
+	private OnEntityChangedListener onEntityChangedListener;
 	
 	public ComponentsHud(Skin skin, Stage ui, Class<? extends JsonId> jsonComponent)
 	{

@@ -1,7 +1,5 @@
 package net.onedaybeard.dominatrix.artemis;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.onedaybeard.dominatrix.artemis.JsonComponentFactory.FactoryInstance;
 import net.onedaybeard.dominatrix.util.Logger;
 
@@ -30,7 +28,7 @@ public class EntityFactoryManager extends Manager
 
 	private ComponentMapper<? extends Component> jsonKeyMapper;
 	
-	@Setter @Getter private boolean debugEntityCreation;
+	private boolean debugEntityCreation;
 
 	private Class<? extends Component> jsonClass;
 

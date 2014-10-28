@@ -1,8 +1,5 @@
 package net.onedaybeard.dominatrix.util;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import com.badlogic.gdx.Gdx;
 
 public final class SystemNTimer
@@ -16,7 +13,7 @@ public final class SystemNTimer
 	private final String logFormat;
 	private int dropped;
 
-	@Getter @Setter private boolean enabled;
+	private boolean enabled;
 
 	public SystemNTimer(Class<?> system, int minInterval, boolean enabled)
 	{

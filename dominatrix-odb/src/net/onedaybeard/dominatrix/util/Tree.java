@@ -18,20 +18,17 @@ package net.onedaybeard.dominatrix.util;
 import java.util.LinkedList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * A hierarchical data structure operating on a single type. A node's
  * value can be <code>null</code>.
  */
 public class Tree<T>
 {
-	@Getter	private final List<Tree<T>> childNodes;
+	private final List<Tree<T>> childNodes;
 	
-	@Getter	private Tree<T> parent;
+	private Tree<T> parent;
 	
-	@Getter @Setter	private T value;
+	private T value;
 	
 	public Tree()
 	{
@@ -89,8 +86,7 @@ public class Tree<T>
 	{
 		int depth = 0;
 		Tree<T> t = this;
-		while ((t = t.getParent()) != null)
-		{
+		while ((t = t.parent) != null) {
 			depth++;
 		}
 		
@@ -102,11 +98,26 @@ public class Tree<T>
 	{
 		StringBuilder indent = new StringBuilder();
 		Tree<T> t = this;
-		while ((t = t.getParent()) != null)
-		{
+		while ((t = t.parent) != null) {
 			indent.append("   ");
 		}
 		
 		return String.format("value=%s (%s)", value, childNodes);
+	}
+
+	public T getValue() {
+		return value;
+	}
+
+	public void setValue(T value) {
+		this.value = value;
+	}
+
+	public Tree<T> getParent() {
+		return parent;
+	}
+
+	public List<Tree<T>> getChildNodes() {
+		return childNodes;
 	}
 }
