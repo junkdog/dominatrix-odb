@@ -1,3 +1,9 @@
+## Take Note
+
+*This small library was initially conceived during the early ECS days and hasn't really been keeping 
+up-to-date with developments in [artemis-odb](https://github.com/junkdog/artemis-odb). While some of the
+functionality is useful, it's a little too diverse. The good bits could favorably be migrated to [artemis-odb-contrib](https://github.com/DaanVanYperen/artemis-odb-contrib)*
+
 dominatrix-odb is a small, but diverse library for working with [libGDX](http://libgdx.badlogicgames.com/) + 
 [Artemis Entity System Framework](http://gamadu.com/artemis/), primarily dealing with runtime introspection and live editing.
 
